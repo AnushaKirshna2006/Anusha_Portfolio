@@ -86,9 +86,15 @@ const ProjectRow = ({ proj, idx, navigateWithTransition }) => {
       <motion.div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', order: idx % 2 === 0 ? 2 : 1, y: imgY }}>
         <div 
           onClick={() => navigateWithTransition(`/project/${proj.id}`)}
-          style={{ width: '100%', paddingBottom: '45%', position: 'relative', borderRadius: 'var(--radius-lg)', overflow: 'hidden', border: '1px solid var(--glass-border)', cursor: 'pointer', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
+          className="project-image-wrap"
+          style={{ width: '100%', paddingBottom: '45%', position: 'relative', border: '1px solid var(--glass-border)', cursor: 'pointer', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
         >
           <WebGLImage src={proj.img} alt={proj.title} style={{ position: 'absolute', inset: 0 }} />
+          <div className="project-overlay">
+            <div className="project-overlay-content">
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>View Project →</span>
+            </div>
+          </div>
         </div>
         <p style={{ fontSize: '1.1rem', lineHeight: 1.6, color: 'var(--fg-dim)' }}>
           {proj.desc}

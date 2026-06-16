@@ -107,6 +107,7 @@ const About = ({ onOpenInfo }) => {
         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '100%', height: '100%', background: 'var(--accent)', filter: 'blur(100px)', opacity: 0.15, zIndex: 0 }} />
 
         <motion.div
+          className="profile-glow-ring"
           initial={{ opacity: 0, filter: 'grayscale(100%) blur(10px)' }}
           whileInView={{ opacity: 1, filter: 'grayscale(0%) blur(0px)' }}
           viewport={{ once: true, margin: "-100px" }}

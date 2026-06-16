@@ -11,6 +11,8 @@ import { useSound } from './components/SoundContext';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
 import AllCertifications from './pages/AllCertifications';
+import ScrollProgress from './components/ScrollProgress';
+import BackToTop from './components/BackToTop';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -39,6 +41,8 @@ const App = () => {
 
   return (
     <SmoothScroll>
+      <ScrollProgress />
+      <BackToTop />
       <CustomCursor />
       {loading ? (
         <Preloader onComplete={() => setLoading(false)} />
