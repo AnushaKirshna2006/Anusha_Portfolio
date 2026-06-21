@@ -40,6 +40,7 @@ const AmbientAura = () => {
           filter: 'blur(100px)',
           top: '-10%',
           left: '-10%',
+          willChange: 'transform'
         }}
       />
 
@@ -56,6 +57,7 @@ const AmbientAura = () => {
           filter: 'blur(80px)',
           x: springX,
           y: springY,
+          willChange: 'transform'
         }}
       />
     </div>

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useRef } from 'react';
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
 
 const SoundContext = createContext();
 
@@ -6,6 +6,7 @@ export const useSound = () => useContext(SoundContext);
 
 export const SoundProvider = ({ children }) => {
   const audioCtxRef = useRef(null);
+  const [soundEnabled, setSoundEnabled] = useState(true);
 
   useEffect(() => {
     // Initialize AudioContext on first user interaction to bypass browser autoplay policies
@@ -18,8 +19,12 @@ export const SoundProvider = ({ children }) => {
     return () => document.removeEventListener('click', initAudio);
   }, []);
 
+  const toggleSound = () => {
+    setSoundEnabled(!soundEnabled);
+  };
+
   const playTick = () => {
-    if (!audioCtxRef.current) return;
+    if (!soundEnabled || !audioCtxRef.current) return;
     const ctx = audioCtxRef.current;
     if (ctx.state === 'suspended') ctx.resume();
 
@@ -41,7 +46,7 @@ export const SoundProvider = ({ children }) => {
   };
 
   const playSwoosh = () => {
-    if (!audioCtxRef.current) return;
+    if (!soundEnabled || !audioCtxRef.current) return;
     const ctx = audioCtxRef.current;
     if (ctx.state === 'suspended') ctx.resume();
 
@@ -75,7 +80,7 @@ export const SoundProvider = ({ children }) => {
   };
 
   const playGlassTap = () => {
-    if (!audioCtxRef.current) return;
+    if (!soundEnabled || !audioCtxRef.current) return;
     const ctx = audioCtxRef.current;
     if (ctx.state === 'suspended') ctx.resume();
 
@@ -106,7 +111,7 @@ export const SoundProvider = ({ children }) => {
   };
 
   return (
-    <SoundContext.Provider value={{ playTick, playSwoosh, playGlassTap }}>
+    <SoundContext.Provider value={{ playTick, playSwoosh, playGlassTap, soundEnabled, toggleSound }}>
       {children}
     </SoundContext.Provider>
   );

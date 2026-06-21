@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import CustomCursor from './components/CustomCursor';
 import Preloader from './components/Preloader';
 import SmoothScroll from './components/SmoothScroll';
@@ -8,11 +9,11 @@ import ProjectDetails from './pages/ProjectDetails';
 import ContactPage from './pages/ContactPage';
 import { TransitionProvider } from './components/TransitionContext';
 import { useSound } from './components/SoundContext';
-import Blog from './pages/Blog';
-import BlogPost from './pages/BlogPost';
 import AllCertifications from './pages/AllCertifications';
 import ScrollProgress from './components/ScrollProgress';
 import BackToTop from './components/BackToTop';
+import TerminalEasterEgg from './components/TerminalEasterEgg';
+import NotFound from './pages/NotFound';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -44,18 +45,20 @@ const App = () => {
       <ScrollProgress />
       <BackToTop />
       <CustomCursor />
+      <TerminalEasterEgg />
       {loading ? (
         <Preloader onComplete={() => setLoading(false)} />
       ) : (
         <TransitionProvider>
-          <Routes>
-            <Route path="/" element={<MainLayout />} />
-            <Route path="/project/:id" element={<ProjectDetails />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/certifications" element={<AllCertifications />} />
-          </Routes>
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<MainLayout />} />
+              <Route path="/project/:id" element={<ProjectDetails />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/certifications" element={<AllCertifications />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </AnimatePresence>
         </TransitionProvider>
       )}
     </SmoothScroll>

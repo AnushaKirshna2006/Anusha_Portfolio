@@ -4,6 +4,7 @@ import WebGLImage from '../components/WebGLImage';
 import { useTransition } from '../components/TransitionContext';
 import ScrambleText from '../components/ScrambleText';
 import RedCurve from '../components/RedCurve';
+import TiltCard from '../components/TiltCard';
 
 const projects = [
   {
@@ -62,52 +63,74 @@ const ProjectRow = ({ proj, idx, navigateWithTransition }) => {
       viewport={{ once: true, margin: "-100px" }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="glass-panel"
-      style={{ display: 'grid', gridTemplateColumns: idx % 2 === 0 ? '1fr 1.2fr' : '1.2fr 1fr', gap: '2rem', alignItems: 'center', margin: '4vh 0', padding: '2rem' }}
+      style={{ margin: '4vh 0' }}
     >
-      
-      {/* Title */}
-      <motion.div style={{ order: idx % 2 === 0 ? 1 : 2, y: textY }}>
-        <h3 
-          onClick={() => navigateWithTransition(`/project/${proj.id}`)}
-          className="link-hover"
-          style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.5rem, 2.5vw, 3rem)', fontWeight: 600, lineHeight: 1, letterSpacing: '-0.02em', color: 'var(--fg)', marginBottom: '1rem', cursor: 'pointer' }}
+      <TiltCard intensity={5}>
+        <div
+          className="glass-panel"
+          style={{ display: 'grid', gridTemplateColumns: idx % 2 === 0 ? '1fr 1.2fr' : '1.2fr 1fr', gap: '4rem', alignItems: 'center', padding: '3rem 4rem' }}
         >
-          <ScrambleText text={proj.title} />
-        </h3>
-        <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--accent)', display: 'flex', gap: '2rem', marginBottom: '1.5rem', fontWeight: 500 }}>
-          <span>{proj.num}</span>
-          <span>{proj.year}</span>
-          <span>{proj.type}</span>
-        </div>
-      </motion.div>
-
-      {/* Detailed Information & Image */}
-      <motion.div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', order: idx % 2 === 0 ? 2 : 1, y: imgY }}>
-        <div 
-          onClick={() => navigateWithTransition(`/project/${proj.id}`)}
-          className="project-image-wrap"
-          style={{ width: '100%', paddingBottom: '45%', position: 'relative', border: '1px solid var(--glass-border)', cursor: 'pointer', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }}
-        >
-          <WebGLImage src={proj.img} alt={proj.title} style={{ position: 'absolute', inset: 0 }} />
-          <div className="project-overlay">
-            <div className="project-overlay-content">
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>View Project →</span>
+          
+          {/* Info Side */}
+          <motion.div style={{ order: idx % 2 === 0 ? 1 : 2, display: 'flex', flexDirection: 'column', gap: '1.5rem', y: textY }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '3rem', fontWeight: 900, color: 'transparent', WebkitTextStroke: '1px rgba(255,255,255,0.1)' }}>{proj.num}</span>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.15em' }}>{proj.type}</span>
             </div>
-          </div>
+            
+            <h3 
+              onClick={() => navigateWithTransition(`/project/${proj.id}`)}
+              className="link-hover"
+              style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 4vw, 4rem)', fontWeight: 700, lineHeight: 1.05, letterSpacing: '-0.03em', color: 'var(--fg)', cursor: 'pointer', margin: 0 }}
+            >
+              <ScrambleText text={proj.title} />
+            </h3>
+            
+            <p style={{ fontSize: '1.1rem', lineHeight: 1.6, color: 'var(--fg-dim)', margin: 0, paddingRight: idx % 2 === 0 ? '2rem' : '0' }}>
+              {proj.desc}
+            </p>
+            
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', marginTop: '0.5rem' }}>
+              {proj.tech.map(t => (
+                <span key={t} style={{ padding: '0.4rem 1rem', background: 'rgba(0,242,254,0.05)', color: 'var(--accent)', border: '1px solid rgba(0,242,254,0.15)', borderRadius: '8px', fontFamily: 'var(--font-mono)', fontSize: '0.75rem' }}>
+                  {t}
+                </span>
+              ))}
+            </div>
+            
+            <div style={{ display: 'flex', gap: '2rem', marginTop: '1.5rem', alignItems: 'center' }}>
+              <span 
+                onClick={() => navigateWithTransition(`/project/${proj.id}`)}
+                className="link-hover" 
+                style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--fg)', cursor: 'pointer', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.3rem', display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'color 0.3s' }}
+              >
+                View Project 
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </span>
+              <a href={proj.github} target="_blank" rel="noopener noreferrer" className="link-hover" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--fg-dim)', borderBottom: '1px solid transparent', paddingBottom: '0.3rem', transition: 'color 0.3s' }}>
+                Source Code
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Image Side */}
+          <motion.div style={{ order: idx % 2 === 0 ? 2 : 1, y: imgY, width: '100%' }}>
+            <div 
+              onClick={() => navigateWithTransition(`/project/${proj.id}`)}
+              className="project-image-wrap"
+              style={{ width: '100%', aspectRatio: '16/10', position: 'relative', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)', cursor: 'pointer', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.5)', background: '#000' }}
+            >
+              <WebGLImage src={proj.img} alt={proj.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />
+              <div className="project-overlay" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%)' }}>
+                <div className="project-overlay-content" style={{ position: 'absolute', bottom: '2rem', left: '2rem', transform: 'none' }}>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.15em' }}>Explore Interactive</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+          
         </div>
-        <p style={{ fontSize: '1.1rem', lineHeight: 1.6, color: 'var(--fg-dim)' }}>
-          {proj.desc}
-        </p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
-          {proj.tech.map(t => (
-            <span key={t} style={{ padding: '0.4rem 1rem', background: 'rgba(255,255,255,0.05)', color: 'var(--fg)', border: '1px solid var(--glass-border)', borderRadius: '20px', fontFamily: 'var(--font-mono)', fontSize: '0.75rem' }}>
-              {t}
-            </span>
-          ))}
-        </div>
-        <a href={proj.github} target="_blank" rel="noopener noreferrer" className="link-hover" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', alignSelf: 'flex-start', color: 'var(--accent-2)', borderBottom: '1px solid var(--accent-2)', paddingBottom: '0.2rem', fontWeight: 500 }}>View Source</a>
-      </motion.div>
+      </TiltCard>
     </motion.div>
   );
 };

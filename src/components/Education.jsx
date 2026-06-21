@@ -74,7 +74,7 @@ const EducationNode = ({ edu, index }) => {
 
 const Education = () => {
   return (
-    <section id="education" style={{ padding: '8rem var(--pad-x)', position: 'relative', background: 'var(--bg)' }}>
+    <section id="education" style={{ padding: '8rem var(--pad-x)', position: 'relative' }}>
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '6rem' }}>
         <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 700, color: 'var(--fg)', letterSpacing: '-0.02em', textShadow: '0 0 30px rgba(255,255,255,0.1)' }}>
           <TextReveal type="chars">Education.</TextReveal>

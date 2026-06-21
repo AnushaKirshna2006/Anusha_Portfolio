@@ -1,27 +1,45 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import PhysicsSkills from './PhysicsSkills';
+import SkillBars from './SkillBars';
 
 const skillsData = [
   {
     category: 'Frontend',
-    items: ['HTML', 'CSS', 'JavaScript', 'React', 'TailwindCSS', 'Framer Motion']
+    skills: [
+      { name: 'HTML', level: 95 },
+      { name: 'CSS', level: 90 },
+      { name: 'JavaScript', level: 85 },
+      { name: 'React', level: 88 },
+      { name: 'TailwindCSS', level: 82 },
+      { name: 'Framer Motion', level: 78 }
+    ]
   },
   {
     category: 'Backend & Data',
-    items: ['Node.js', 'MongoDB', 'RESTful APIs', 'SQL']
+    skills: [
+      { name: 'Node.js', level: 75 },
+      { name: 'MongoDB', level: 72 },
+      { name: 'PostgreSQL', level: 75 },
+      { name: 'RESTful APIs', level: 80 },
+      { name: 'SQL', level: 70 }
+    ]
   },
   {
     category: 'Design & Tools',
-    items: ['UI/UX Design', 'Figma', 'Adobe Photoshop', 'Git']
+    skills: [
+      { name: 'UI/UX Design', level: 85 },
+      { name: 'Figma', level: 80 },
+      { name: 'Adobe Photoshop', level: 75 },
+      { name: 'Git', level: 82 }
+    ]
   },
   {
     category: 'Domains',
-    items: ['Web Development', 'Data Analysis', 'Interactive Experiences']
-  },
-  {
-    category: 'Certificates',
-    items: ['Data Science - R basics (edX)', 'Adobe Photoshop (Alison)', 'AI Conference (/function)']
+    skills: [
+      { name: 'Web Development', level: 92 },
+      { name: 'Data Analysis', level: 70 },
+      { name: 'Interactive Experiences', level: 78 }
+    ]
   }
 ];
 
@@ -36,8 +54,7 @@ const Skills = () => {
       padding: '10rem var(--pad-x)',
       display: 'flex',
       flexDirection: 'column',
-      color: 'var(--fg)',
-      background: 'var(--bg)'
+      color: 'var(--fg)'
     }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8rem', width: '100%' }}>
         
@@ -46,8 +63,8 @@ const Skills = () => {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: false, margin: "-100px" }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             style={{ fontSize: '0.85rem', marginBottom: '2rem', fontFamily: 'var(--font-body)', fontWeight: 600 }}
           >
             Skills
@@ -69,8 +86,8 @@ const Skills = () => {
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: false, margin: "-100px" }}
+            transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1.5rem', width: '100%' }}
           >
             <a href="mailto:anushakirshna@gmail.com" className="link-hover" style={{ 
@@ -85,21 +102,29 @@ const Skills = () => {
             </a>
           </motion.div>
           
-          {/* Decorative Horizontal Red Arrow */}
+          {/* Decorative Horizontal Blue Arrow */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: false, margin: "-100px" }}
             transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            style={{ marginTop: '8rem', color: '#ff3300' }}
+            style={{ marginTop: '8rem', color: 'var(--accent)', display: 'inline-block' }}
           >
-            <svg width="120" height="60" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 20H80V0L120 30L80 60V40H0V20Z" fill="currentColor"/>
-            </svg>
+            <motion.div
+              initial={{ x: 0 }}
+              whileInView={{ x: [0, "35vw", 0] }}
+              viewport={{ once: false, margin: "-100px" }}
+              transition={{ duration: 3, delay: 0.8, ease: "easeInOut" }}
+              style={{ filter: 'drop-shadow(0 0 10px var(--accent)) drop-shadow(0 0 25px var(--accent))' }}
+            >
+              <svg width="200" height="100" viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 20H80V0L120 30L80 60V40H0V20Z" fill="currentColor"/>
+              </svg>
+            </motion.div>
           </motion.div>
         </div>
 
-        {/* Right Side (Accordion) */}
+        {/* Right Side (Accordion with Skill Bars) */}
         <div style={{ display: 'flex', flexDirection: 'column', paddingTop: '3rem' }}>
           {skillsData.map((skill, index) => {
             const isOpen = openCategory === skill.category;
@@ -109,8 +134,8 @@ const Skills = () => {
                 key={skill.category}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2 + (index * 0.1), ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: false, margin: "-100px" }}
+                transition={{ duration: 1.2, delay: 0.2 + (index * 0.1), ease: [0.16, 1, 0.3, 1] }}
                 style={{ 
                   paddingBottom: '2.5rem',
                   marginBottom: '1rem'
@@ -149,16 +174,8 @@ const Skills = () => {
                       transition={{ duration: 0.3 }}
                       style={{ overflow: 'hidden' }}
                     >
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', paddingTop: '2rem' }}>
-                        {skill.items.map(item => (
-                          <div key={item} style={{ 
-                            color: 'var(--fg-dim)', 
-                            fontFamily: 'var(--font-body)', 
-                            fontSize: '1rem'
-                          }}>
-                            {item}
-                          </div>
-                        ))}
+                      <div style={{ paddingTop: '2rem' }}>
+                        <SkillBars skills={skill.skills} />
                       </div>
                     </motion.div>
                   )}
@@ -170,17 +187,6 @@ const Skills = () => {
         
       </div>
       
-      {/* Interactive Physics Skills Playground */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        style={{ width: '100%', marginTop: '6rem' }}
-      >
-        <PhysicsSkills />
-      </motion.div>
-
     </section>
   );
 };

@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import Particles, { ParticlesProvider } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 
-const ParticleBackground = () => {
+const ParticleBackground = ({ style }) => {
   const particlesInit = useCallback(async (engine) => {
     await loadSlim(engine);
   }, []);
@@ -90,7 +90,8 @@ const ParticleBackground = () => {
         width: '100%',
         height: '100%',
         zIndex: 0,
-        pointerEvents: 'none'
+        pointerEvents: 'none',
+        ...style
       }}
     />
     </ParticlesProvider>

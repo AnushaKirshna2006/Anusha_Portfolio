@@ -8,6 +8,7 @@ export const useCursor = () => useContext(CursorContext);
 export const CursorProvider = ({ children }) => {
   const [cursorVariant, setCursorVariant] = useState('default');
   const [cursorText, setCursorText] = useState('');
+  const [cursorColor, setCursorColor] = useState('var(--accent)');
   const { playTick } = useSound();
 
   useEffect(() => {
@@ -23,19 +24,21 @@ export const CursorProvider = ({ children }) => {
       }
 
       // Check if it's a link or button
-      if (
-        target.tagName.toLowerCase() === 'a' ||
-        target.tagName.toLowerCase() === 'button' ||
-        target.closest('a') ||
-        target.closest('button') ||
-        target.classList.contains('chr-hover') ||
-        target.classList.contains('link-hover')
-      ) {
+      const interactiveEl = target.closest('a, button, .chr-hover, .link-hover');
+      if (interactiveEl) {
         setCursorVariant('hover');
+        const color = window.getComputedStyle(interactiveEl).color;
+        // Check if text is close to cyan/blue
+        if (color.includes('0, 242, 254') || color.includes('0, 255, 255')) {
+          setCursorColor('#ffffff'); // Show white magnifier over blue text
+        } else {
+          setCursorColor('var(--accent)'); // Show blue magnifier over white text
+        }
         return;
       }
 
       setCursorVariant('default');
+      setCursorColor('var(--accent)');
     };
 
     const handleMouseClick = (e) => {
@@ -62,7 +65,7 @@ export const CursorProvider = ({ children }) => {
   }, [cursorVariant, playTick]);
 
   return (
-    <CursorContext.Provider value={{ cursorVariant, setCursorVariant, cursorText, setCursorText }}>
+    <CursorContext.Provider value={{ cursorVariant, setCursorVariant, cursorText, setCursorText, cursorColor }}>
       {children}
     </CursorContext.Provider>
   );

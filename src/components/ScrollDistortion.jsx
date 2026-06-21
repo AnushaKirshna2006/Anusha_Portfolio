@@ -15,7 +15,7 @@ const ScrollDistortion = ({ children }) => {
   const skewY = useTransform(smoothVelocity, [-1500, 1500], [4, -4]);
 
   return (
-    <motion.div style={{ skewY, transformOrigin: 'center center' }}>
+    <motion.div style={{ skewY, transformOrigin: 'center center', willChange: 'transform' }}>
       {children}
     </motion.div>
   );

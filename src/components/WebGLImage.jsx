@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const vertexShader = `
 varying vec2 vUv;
@@ -35,6 +36,7 @@ const WebGLImage = ({ src, alt, style }) => {
   const containerRef = useRef();
   const isHoveredRef = useRef(false);
   const hoverUniform = useRef(0);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -49,7 +51,9 @@ const WebGLImage = ({ src, alt, style }) => {
     containerRef.current.appendChild(renderer.domElement);
 
     const textureLoader = new THREE.TextureLoader();
-    const texture = textureLoader.load(src);
+    const texture = textureLoader.load(src, () => {
+      setIsLoaded(true);
+    });
 
     const material = new THREE.ShaderMaterial({
       vertexShader,
@@ -101,14 +105,32 @@ const WebGLImage = ({ src, alt, style }) => {
   }, [src]);
 
   return (
-    <div 
-      ref={containerRef} 
-      style={{ ...style, width: '100%', height: '100%', cursor: 'none' }}
-      onMouseEnter={() => isHoveredRef.current = true}
-      onMouseLeave={() => isHoveredRef.current = false}
-      data-cursor="view"
-      title={alt}
-    />
+    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+      <div 
+        ref={containerRef} 
+        style={{ ...style, width: '100%', height: '100%', cursor: 'none' }}
+        onMouseEnter={() => isHoveredRef.current = true}
+        onMouseLeave={() => isHoveredRef.current = false}
+        data-cursor="view"
+        title={alt}
+      />
+      <AnimatePresence>
+        {!isLoaded && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="shimmer"
+            style={{
+              position: 'absolute',
+              inset: 0,
+              zIndex: 10,
+              pointerEvents: 'none'
+            }}
+          />
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
 

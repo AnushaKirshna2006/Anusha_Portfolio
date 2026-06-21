@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useSpring, useTransform, useVelocity, useAnimationFrame, wrap, useMotionValue } from 'framer-motion';
 
-const Marquee = ({ text = "DIGITAL ALCHEMIST • FRONTEND ARCHITECT • WEBGL EXPERT • " }) => {
+const Marquee = ({ text = "HTML/CSS • JAVASCRIPT • REACT • TAILWINDCSS • NODE.JS • UI/UX DESIGN • FIGMA • MONGODB • " }) => {
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -13,12 +13,12 @@ const Marquee = ({ text = "DIGITAL ALCHEMIST • FRONTEND ARCHITECT • WEBGL EX
     clamp: false
   });
 
-  const x = useTransform(baseX, (v) => `${wrap(-20, -45, v)}%`);
+  const x = useTransform(baseX, (v) => `${wrap(0, -50, v)}%`);
 
   const directionFactor = useRef(1);
 
   useAnimationFrame((t, delta) => {
-    let moveBy = directionFactor.current * -0.05 * (delta / 16); // slightly faster default
+    let moveBy = directionFactor.current * -0.01 * (delta / 16); // even slower default
 
     if (velocityFactor.get() < 0) {
       directionFactor.current = -1;
@@ -31,9 +31,9 @@ const Marquee = ({ text = "DIGITAL ALCHEMIST • FRONTEND ARCHITECT • WEBGL EX
   });
 
   return (
-    <div style={{ 
-      width: '100%', overflow: 'hidden', padding: '4rem 0', 
-      background: 'var(--bg)', borderTop: '1px solid var(--glass-border)', borderBottom: '1px solid var(--glass-border)'
+    <div style={{
+      width: '100%', overflow: 'hidden', padding: '2rem 0', 
+      borderTop: '1px solid var(--glass-border)', borderBottom: '1px solid var(--glass-border)'
     }}>
       <motion.div
         whileHover={{ 
@@ -48,8 +48,9 @@ const Marquee = ({ text = "DIGITAL ALCHEMIST • FRONTEND ARCHITECT • WEBGL EX
         style={{
           display: 'flex',
           whiteSpace: 'nowrap',
+          width: 'max-content',
           fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(5rem, 12vw, 10rem)', // MASSIVE
+          fontSize: 'clamp(3rem, 6vw, 6rem)', // Adjusted size
           fontWeight: 900,
           color: 'transparent',
           WebkitTextStroke: '2px var(--fg-dim)',
@@ -59,11 +60,9 @@ const Marquee = ({ text = "DIGITAL ALCHEMIST • FRONTEND ARCHITECT • WEBGL EX
           x
         }}
       >
-        <div style={{ paddingRight: '2rem', display: 'flex', gap: '2rem' }}>
-          <span>{text}</span>
-          <span>{text}</span>
-          <span>{text}</span>
-          <span>{text}</span>
+        <div style={{ display: 'flex', whiteSpace: 'nowrap', width: 'max-content' }}>
+          <span style={{ paddingRight: '2rem' }}>{text} {text} {text} {text} </span>
+          <span style={{ paddingRight: '2rem' }}>{text} {text} {text} {text} </span>
         </div>
       </motion.div>
     </div>

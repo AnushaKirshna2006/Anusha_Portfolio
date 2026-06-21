@@ -17,6 +17,13 @@ import Experience from '../components/Experience';
 import Education from '../components/Education';
 import Certifications from '../components/Certifications';
 
+// NEW sections
+import Services from '../components/Services';
+import Testimonials from '../components/Testimonials';
+
+import Footer from '../components/Footer';
+import Avatar3D from '../components/Avatar3D';
+
 const MainLayout = () => {
   const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -47,17 +54,50 @@ const MainLayout = () => {
     >
       <AmbientAura />
       <Navbar onOpenInfo={(e) => { e.preventDefault(); triggerInfo(); }} />
+      
+      {/* 1. Hero */}
       <Home />
+      
+      {/* 2. About */}
       <About onOpenInfo={(e) => { e.preventDefault(); triggerInfo(); }} />
+      
+      {/* 3. What I Do (NEW) */}
+      <Services />
+
+      {/* 5. ScatterIntro */}
       <ScatterIntro />
+      
+      {/* 6. Skills (ENHANCED with bars) */}
       <Skills />
+      
+      {/* 7. Certifications */}
       <Certifications />
+      
+      {/* 8. Education */}
       <Education />
+      
+      {/* 9. Experience */}
       <Experience />
+      
+      {/* 10. Testimonials (NEW) */}
+      <Testimonials />
+      
+
+      
+      {/* 12. Works (detailed list) */}
       <Works />
+      
+      {/* 13. ScrollDistortion */}
       <ScrollDistortion />
+      
+      {/* 14. Marquee */}
       <Marquee />
+      
+      {/* 15. Contact CTA */}
       <Contact />
+      
+      {/* 16. Footer (NEW) */}
+      <Footer />
       
       <AnimatePresence>
         {isInfoOpen && <Info onClose={closeInfo} />}
@@ -70,6 +110,8 @@ const MainLayout = () => {
           setIsTransitioning(false); // Reset trigger
         }} 
       />
+      
+      <Avatar3D />
     </motion.main>
   );
 };

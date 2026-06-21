@@ -30,7 +30,7 @@ const TextReveal = ({ children, delay = 0, duration = 0.8, type = 'block', stagg
         <motion.div
           initial={{ y: '100%', rotate: 2 }}
           whileInView={{ y: '0%', rotate: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
+          viewport={{ once: false, margin: "-40px" }}
           transition={{ duration, ease, delay }}
           style={{ transformOrigin: 'top left' }}
         >
@@ -49,7 +49,7 @@ const TextReveal = ({ children, delay = 0, duration = 0.8, type = 'block', stagg
       custom={{ stagger, delay }}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-40px" }}
+      viewport={{ once: false, margin: "-40px" }}
       style={{ display: 'inline-block' }}
     >
       {items.map((item, i) => (
