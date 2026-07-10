@@ -37,6 +37,13 @@ export const CursorProvider = ({ children }) => {
         return;
       }
 
+      // Check if it's large text
+      const textEl = target.closest('h1, h2, h3, p');
+      if (textEl) {
+        setCursorVariant('text');
+        return;
+      }
+
       setCursorVariant('default');
       setCursorColor('var(--accent)');
     };

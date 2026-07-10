@@ -154,10 +154,10 @@ export const CertDetailModal = ({ cert, onClose }) => {
       }}
     >
       <motion.div
-        initial={{ opacity: 0, y: 40, scale: 0.95 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 20, scale: 0.97 }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        initial={{ opacity: 0, y: 80, scale: 0.8, rotateX: 20 }}
+        animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
+        exit={{ opacity: 0, y: 30, scale: 0.9, rotateX: 10 }}
+        transition={{ type: "spring", damping: 20, stiffness: 100, mass: 0.8 }}
         onClick={(e) => e.stopPropagation()}
         className="glass-panel"
         style={{
@@ -338,6 +338,7 @@ export const FilterPills = ({ categories, active, onSelect }) => (
    ═══════════════════════════════════════════════════════ */
 const Certifications = () => {
   const containerRef = useRef(null);
+  const [selectedCert, setSelectedCert] = useState(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -363,7 +364,7 @@ const Certifications = () => {
           margin: '0 auto'
         }}>
           {certifications.slice(0, 4).map((cert, index) => (
-            <CertCard key={cert.id} cert={cert} index={index} />
+            <CertCard key={cert.id} cert={cert} index={index} onSelect={setSelectedCert} />
           ))}
         </div>
         
@@ -391,6 +392,12 @@ const Certifications = () => {
           </Magnetic>
         </div>
       </motion.div>
+
+      <AnimatePresence>
+        {selectedCert && (
+          <CertDetailModal cert={selectedCert} onClose={() => setSelectedCert(null)} />
+        )}
+      </AnimatePresence>
     </section>
   );
 };

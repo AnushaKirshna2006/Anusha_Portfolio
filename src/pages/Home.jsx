@@ -30,36 +30,96 @@ const Home = () => {
   
   const y = useTransform(scrollYProgress, [0, 1], ["0vh", "40vh"]);
 
+  const expertiseList = ["Software Engineer", "Frontend Developer", "UI/UX Designer", "Web Developer"];
   const [typeText, setTypeText] = useState('');
-  const fullText = "Software Engineer";
-  
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+
   useEffect(() => {
-    let i = 0;
-    const typing = setInterval(() => {
-      if (i < fullText.length) {
-        setTypeText(fullText.slice(0, i + 1));
-        i++;
+    let timer = setTimeout(() => {
+      const current = loopNum % expertiseList.length;
+      const fullText = expertiseList[current];
+
+      if (!isDeleting) {
+        setTypeText(fullText.substring(0, typeText.length + 1));
+        setTypingSpeed(100);
       } else {
-        clearInterval(typing);
+        setTypeText(fullText.substring(0, typeText.length - 1));
+        setTypingSpeed(50);
       }
-    }, 150);
-    return () => clearInterval(typing);
+
+      if (!isDeleting && typeText === fullText) {
+        setTypingSpeed(1500); // Wait before deleting
+        setIsDeleting(true);
+      } else if (isDeleting && typeText === '') {
+        setIsDeleting(false);
+        setLoopNum(loopNum + 1);
+        setTypingSpeed(500); // Wait before typing next
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(timer);
+  }, [typeText, isDeleting, typingSpeed, loopNum]);
+
+  // Autoplay sound on scroll observation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // When hero section is in view, try to unmute
+            setIsMuted(false);
+            if (videoRef.current) {
+              videoRef.current.muted = false;
+              // Some browsers block programmatic unmuting without prior user interaction.
+              // If it fails, we catch the error, mute it back, and let it play silently.
+              videoRef.current.play().catch(e => {
+                console.warn("Browser blocked autoplay with sound. Muting to resume playback.");
+                setIsMuted(true);
+                videoRef.current.muted = true;
+                videoRef.current.play();
+              });
+            }
+          } else {
+            // When hero section is out of view, mute it
+            setIsMuted(true);
+            if (videoRef.current) {
+              videoRef.current.muted = true;
+            }
+          }
+        });
+      },
+      { threshold: 0.3 } // Trigger when 30% of the hero section is visible
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
   }, []);
 
   return (
-    <section id="home" ref={containerRef} className="scroll-wrap visible" style={{ minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
+    <section id="home" ref={containerRef} className="scroll-wrap visible" style={{ minHeight: '100vh', position: 'relative', overflow: 'visible' }}>
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', alignItems: 'center', pointerEvents: 'none' }}>
         
         {/* VIDEO CONTAINER ON THE RIGHT */}
-        <div style={{ position: 'absolute', top: 0, right: '5%', width: '40%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 1 }}>
+        <div className="home-video-container" style={{ position: 'absolute', top: 0, right: '5%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', pointerEvents: 'none', zIndex: 1 }}>
           {/* Intense Glow Behind Video */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 0.5, scale: 1 }}
             transition={{ duration: 1.5, ease: "easeOut" }}
-            style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '500px', height: '500px', background: 'var(--accent)', filter: 'blur(120px)', borderRadius: '50%' }} 
+            style={{ 
+              position: 'absolute', top: '50%', left: '50%', 
+              transform: 'translate(-50%, -50%)', 
+              width: '600px', height: '600px', 
+              background: 'radial-gradient(circle, rgba(0,242,254,0.4) 0%, rgba(0,242,254,0) 70%)', 
+              borderRadius: '50%',
+              pointerEvents: 'none'
+            }} 
           />
-          {/* Video element with smooth edge blending */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -67,12 +127,15 @@ const Home = () => {
             style={{
               position: 'relative',
               width: '100%',
-              maxWidth: '500px',
-              aspectRatio: '3/4',
-              /* Smoothly fade the edges of the video into the background */
-              WebkitMaskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
-              maskImage: 'radial-gradient(ellipse at center, black 40%, transparent 80%)',
-              pointerEvents: 'auto'
+              height: '80vh', // Allow it to take up most of the vertical space
+              maxWidth: '600px',
+              /* Only fade the bottom to hide the logo and blend into the background, leaving sides untouched */
+              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 75%, transparent 100%)',
+              maskImage: 'linear-gradient(to bottom, black 0%, black 75%, transparent 100%)',
+              pointerEvents: 'auto',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
             }}
           >
             <video 
@@ -85,7 +148,8 @@ const Home = () => {
               style={{ 
                 width: '100%', 
                 height: '100%', 
-                objectFit: 'cover'
+                objectFit: 'contain', // Ensure no part of the video is cropped
+                opacity: 0.9,
               }}
             >
               {/* This WebM file will be generated by the AI script in the background */}
@@ -104,7 +168,6 @@ const Home = () => {
                   style={{
                     position: 'absolute',
                     inset: 0,
-                    borderRadius: '16px',
                     zIndex: 5
                   }}
                 />
@@ -114,23 +177,34 @@ const Home = () => {
             {/* Sound Toggle Button */}
             <button 
               onClick={toggleMute}
-              className="glass-pill link-hover"
+              className="link-hover"
               style={{
                 position: 'absolute',
-                bottom: '20px',
-                right: '20px',
-                background: 'rgba(0, 0, 0, 0.5)',
-                border: '1px solid rgba(0, 242, 254, 0.3)',
-                color: 'var(--accent)',
-                width: '40px',
-                height: '40px',
+                bottom: '10%',
+                right: '10%',
+                background: 'rgba(255,255,255,0.05)',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255,255,255,0.15)',
+                color: '#ffffff',
+                width: '56px',
+                height: '56px',
                 borderRadius: '50%',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                fontSize: '1.2rem',
-                zIndex: 20
+                fontSize: '1.5rem',
+                zIndex: 20,
+                boxShadow: '0 0 15px rgba(0, 0, 0, 0.2)',
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.1)';
+                e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
               }}
             >
               {isMuted ? '🔇' : '🔊'}
@@ -141,7 +215,7 @@ const Home = () => {
         <motion.div style={{ padding: '0 var(--pad-x)', width: '100%', y, pointerEvents: 'auto', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           
           {/* MASSIVE TYPOGRAPHY */}
-          <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'flex-start', maxWidth: '60%' }}>
+          <div className="home-text-container" style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
             <motion.h1 
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}

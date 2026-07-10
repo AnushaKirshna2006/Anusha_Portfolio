@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import PhysicsSkills from '../components/PhysicsSkills';
 import ParticleBackground from '../components/ParticleBackground';
 import { useSound } from '../components/SoundContext';
 
@@ -88,7 +87,7 @@ const Info = ({ onClose }) => {
         {/* Profile Card */}
         <motion.div variants={itemVariants} className="bento-item bento-profile">
           <div style={{ width: '100%', height: '100%', position: 'relative', overflow: 'hidden', borderRadius: '16px' }}>
-            <img src="/assets/images/Profile.jpeg" alt="Anusha Kirshna" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src="/assets/images/Profile.jpeg" alt="Anusha Kirshna" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%', transform: 'scale(1.4) translateX(-8%)' }} />
             <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.9), transparent)', padding: '2rem 1rem 1rem' }}>
               <h2 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 600, color: '#fff' }}>Anusha Kirshna</h2>
               <div style={{ fontSize: '0.85rem', color: '#ccc', fontFamily: 'var(--font-mono)', marginTop: '0.5rem' }}>Software Eng. Student</div>
@@ -121,16 +120,16 @@ const Info = ({ onClose }) => {
           </div>
         </motion.div>
 
-        {/* Experience 1 Card */}
-        <motion.div variants={itemVariants} className="bento-item bento-exp1" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        {/* Education Card */}
+        <motion.div variants={itemVariants} className="bento-item bento-edu" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: '#777', letterSpacing: '0.1em' }}>EXPERIENCE</div>
-            <div style={{ background: '#222', padding: '0.3rem 0.8rem', borderRadius: '50px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#aaa' }}>2024 — 2026</div>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: '#777', letterSpacing: '0.1em' }}>EDUCATION</div>
+            <div style={{ background: '#222', padding: '0.3rem 0.8rem', borderRadius: '50px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#aaa' }}>2024 — 2028</div>
           </div>
-          <h4 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.3rem', fontWeight: 600, margin: '0 0 0.3rem 0' }}>Brand Ambassador</h4>
-          <div style={{ fontSize: '0.9rem', color: 'var(--accent)', marginBottom: '1rem' }}>Premium FMCG Brands</div>
+          <h4 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.3rem', fontWeight: 600, margin: '0 0 0.3rem 0' }}>BSc Computer Software Eng.</h4>
+          <div style={{ fontSize: '0.9rem', color: 'var(--accent)', marginBottom: '1rem' }}>University of Stirling, RAK</div>
           <p style={{ fontSize: '0.95rem', color: '#999', lineHeight: 1.5, margin: 0 }}>
-            Spearheaded cross-functional customer engagement campaigns across high-footfall retail environments. Developed strong communication and user-centric problem-solving skills.
+            Focusing on advanced algorithms, front-end optimization, and robust back-end systems. Building a strong foundation in scalable software architectures.
           </p>
         </motion.div>
 
@@ -143,16 +142,16 @@ const Info = ({ onClose }) => {
           <div style={{ fontWeight: 600, fontSize: '1.1rem' }}>Let's Talk</div>
         </motion.a>
 
-        {/* Education Card */}
-        <motion.div variants={itemVariants} className="bento-item bento-edu" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        {/* Experience 1 Card */}
+        <motion.div variants={itemVariants} className="bento-item bento-exp1" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: '#777', letterSpacing: '0.1em' }}>EDUCATION</div>
-            <div style={{ background: '#222', padding: '0.3rem 0.8rem', borderRadius: '50px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#aaa' }}>2024 — 2028</div>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: '#777', letterSpacing: '0.1em' }}>EXPERIENCE</div>
+            <div style={{ background: '#222', padding: '0.3rem 0.8rem', borderRadius: '50px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#aaa' }}>2024 — 2026</div>
           </div>
-          <h4 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.3rem', fontWeight: 600, margin: '0 0 0.3rem 0' }}>BSc Computer Software Eng.</h4>
-          <div style={{ fontSize: '0.9rem', color: 'var(--accent)', marginBottom: '1rem' }}>University of Stirling, RAK</div>
+          <h4 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.3rem', fontWeight: 600, margin: '0 0 0.3rem 0' }}>Brand Ambassador</h4>
+          <div style={{ fontSize: '0.9rem', color: 'var(--accent)', marginBottom: '1rem' }}>Premium FMCG Brands</div>
           <p style={{ fontSize: '0.95rem', color: '#999', lineHeight: 1.5, margin: 0 }}>
-            Focusing on advanced algorithms, front-end optimization, and robust back-end systems. Building a strong foundation in scalable software architectures.
+            Spearheaded cross-functional customer engagement campaigns across high-footfall retail environments. Developed strong communication and user-centric problem-solving skills.
           </p>
         </motion.div>
 
@@ -167,14 +166,6 @@ const Info = ({ onClose }) => {
           <p style={{ fontSize: '0.95rem', color: '#999', lineHeight: 1.5, margin: 0 }}>
             Extracted, cleaned, and structured large clinical datasets using SQL, reducing reporting turnaround time and ensuring data integrity.
           </p>
-        </motion.div>
-
-        {/* Skills Card */}
-        <motion.div variants={itemVariants} className="bento-item bento-skills" style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: '#777', letterSpacing: '0.1em', marginBottom: '1.5rem' }}>SKILLS & TECH (INTERACTIVE)</div>
-          <div style={{ flex: 1, minHeight: '300px', borderRadius: '16px', overflow: 'hidden', background: '#0a0a0a', position: 'relative' }}>
-            <PhysicsSkills />
-          </div>
         </motion.div>
 
       </div>

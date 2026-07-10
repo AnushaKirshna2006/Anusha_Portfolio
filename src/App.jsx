@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import CustomCursor from './components/CustomCursor';
 import Preloader from './components/Preloader';
 import SmoothScroll from './components/SmoothScroll';
+import NavDots from './components/NavDots';
 import MainLayout from './pages/MainLayout';
 import ProjectDetails from './pages/ProjectDetails';
 import ContactPage from './pages/ContactPage';
@@ -14,6 +15,7 @@ import ScrollProgress from './components/ScrollProgress';
 import BackToTop from './components/BackToTop';
 import TerminalEasterEgg from './components/TerminalEasterEgg';
 import NotFound from './pages/NotFound';
+import PageTransition from './components/PageTransition';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -43,6 +45,7 @@ const App = () => {
   return (
     <SmoothScroll>
       <ScrollProgress />
+      <NavDots isLoading={loading} location={location} />
       <BackToTop />
       <CustomCursor />
       <TerminalEasterEgg />
@@ -52,11 +55,11 @@ const App = () => {
         <TransitionProvider>
           <AnimatePresence mode="wait">
             <Routes location={location} key={location.pathname}>
-              <Route path="/" element={<MainLayout />} />
-              <Route path="/project/:id" element={<ProjectDetails />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/certifications" element={<AllCertifications />} />
-              <Route path="*" element={<NotFound />} />
+              <Route path="/" element={<PageTransition><MainLayout /></PageTransition>} />
+              <Route path="/project/:id" element={<PageTransition><ProjectDetails /></PageTransition>} />
+              <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
+              <Route path="/certifications" element={<PageTransition><AllCertifications /></PageTransition>} />
+              <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
             </Routes>
           </AnimatePresence>
         </TransitionProvider>

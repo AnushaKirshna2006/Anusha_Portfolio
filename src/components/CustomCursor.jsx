@@ -50,7 +50,15 @@ const CustomCursor = () => {
       scale: 4,
       opacity: 1,
       backgroundColor: 'var(--accent)',
-      border: 'none'
+      border: 'none',
+      mixBlendMode: 'normal'
+    },
+    text: {
+      scale: 5,
+      opacity: 1,
+      backgroundColor: '#ffffff',
+      border: 'none',
+      mixBlendMode: 'difference'
     }
   };
 
@@ -68,7 +76,7 @@ const CustomCursor = () => {
             height: `${8 - i * 1.2}px`,
             borderRadius: '50%',
             pointerEvents: 'none',
-            zIndex: 9998,
+            zIndex: 99998,
             backgroundColor: `rgba(0, 242, 254, ${0.3 - i * 0.05})`,
             x: trail.x,
             y: trail.y,
@@ -90,8 +98,7 @@ const CustomCursor = () => {
           height: '20px',
           borderRadius: '50%',
           pointerEvents: 'none',
-          zIndex: 9999,
-          mixBlendMode: 'normal',
+          zIndex: 99999,
           x: cursorX,
           y: cursorY,
           translateX: '-50%',
@@ -112,8 +119,8 @@ const CustomCursor = () => {
       {/* Outer ring */}
       <motion.div
         animate={{
-          scale: cursorVariant === 'hover' ? 1.8 : cursorVariant === 'view' ? 2.5 : 1,
-          opacity: cursorVariant === 'default' ? 0.4 : 0.2,
+          scale: cursorVariant === 'hover' ? 1.8 : cursorVariant === 'view' ? 2.5 : cursorVariant === 'text' ? 5 : 1,
+          opacity: cursorVariant === 'default' ? 0.4 : cursorVariant === 'text' ? 0 : 0.2,
         }}
         transition={{ type: 'spring', stiffness: 200, damping: 20 }}
         style={{
@@ -124,7 +131,7 @@ const CustomCursor = () => {
           height: '40px',
           borderRadius: '50%',
           pointerEvents: 'none',
-          zIndex: 9998,
+          zIndex: 99998,
           border: '1px solid var(--accent)',
           x: cursorX,
           y: cursorY,

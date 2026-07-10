@@ -13,20 +13,17 @@ const Marquee = ({ text = "HTML/CSS • JAVASCRIPT • REACT • TAILWINDCSS •
     clamp: false
   });
 
-  const x = useTransform(baseX, (v) => `${wrap(0, -50, v)}%`);
+  const x = useTransform(baseX, (v) => `${wrap(-50, 0, v)}%`);
 
   const directionFactor = useRef(1);
 
   useAnimationFrame((t, delta) => {
-    let moveBy = directionFactor.current * -0.01 * (delta / 16); // even slower default
+    // Constant slow speed moving left
+    let moveBy = -0.02 * (delta / 16); 
 
-    if (velocityFactor.get() < 0) {
-      directionFactor.current = -1;
-    } else if (velocityFactor.get() > 0) {
-      directionFactor.current = 1;
-    }
-
-    moveBy += directionFactor.current * moveBy * velocityFactor.get();
+    // Add a tiny speed boost based on scroll, but always moving left (absolute value)
+    moveBy += -0.01 * Math.abs(velocityFactor.get());
+    
     baseX.set(baseX.get() + moveBy);
   });
 
@@ -38,12 +35,10 @@ const Marquee = ({ text = "HTML/CSS • JAVASCRIPT • REACT • TAILWINDCSS •
       <motion.div
         whileHover={{ 
           color: 'var(--accent)', 
-          WebkitTextStroke: '0px transparent',
-          scale: 1.05
+          WebkitTextStroke: '0px transparent'
         }}
         transition={{ 
-          color: { duration: 0.3 },
-          scale: { duration: 0.3, type: 'spring', stiffness: 300 }
+          duration: 0.3
         }}
         style={{
           display: 'flex',

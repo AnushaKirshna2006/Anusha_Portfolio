@@ -1,34 +1,34 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const testimonials = [
+const coreValues = [
   {
     id: 1,
-    quote: "Anusha demonstrates exceptional attention to detail in her frontend work. Her ability to translate complex requirements into elegant, user-friendly interfaces sets her apart from her peers.",
-    name: "Dr. Sarah Mitchell",
-    role: "Senior Lecturer, University of Stirling",
-    initials: "SM"
+    quote: "I believe that the best digital experiences are built at the intersection of robust logic and beautiful design. Performance should never be an afterthought.",
+    name: "User-Centric Design",
+    role: "Philosophy",
+    initials: "🎨"
   },
   {
     id: 2,
-    quote: "Working with Anusha on the Virtual Study Buddy project was an incredible experience. Her deep understanding of React and her eye for design elevated our entire team's output.",
-    name: "Arjun Patel",
-    role: "Peer Developer & Collaborator",
-    initials: "AP"
+    quote: "Writing clean, maintainable, and well-documented code is just as important as the feature itself. Good code is like a well-written book.",
+    name: "Clean Code",
+    role: "Methodology",
+    initials: "💻"
   },
   {
     id: 3,
-    quote: "Anusha's data visualization dashboards transformed how we interpreted clinical datasets. Her technical skills combined with her creative approach delivered results beyond our expectations.",
-    name: "Dr. Khalid Al-Rashid",
-    role: "Director, RAK Dental Care",
-    initials: "KR"
+    quote: "Technology evolves rapidly. Staying curious, embracing new paradigms, and continuously learning is the only way to build for the future.",
+    name: "Continuous Learning",
+    role: "Mindset",
+    initials: "🚀"
   },
   {
     id: 4,
-    quote: "She brings a rare combination of technical precision and artistic sensibility. Every project she touches becomes not just functional, but genuinely beautiful to interact with.",
-    name: "Priya Sharma",
-    role: "UI/UX Lead, /function AI Conference",
-    initials: "PS"
+    quote: "Every detail matters. From the subtlest micro-animation to the overall system architecture, true craftsmanship lies in the details.",
+    name: "Attention to Detail",
+    role: "Execution",
+    initials: "✨"
   }
 ];
 
@@ -37,11 +37,11 @@ const Testimonials = () => {
   const [isPaused, setIsPaused] = useState(false);
 
   const next = useCallback(() => {
-    setCurrent((prev) => (prev + 1) % testimonials.length);
+    setCurrent((prev) => (prev + 1) % coreValues.length);
   }, []);
 
   const prev = useCallback(() => {
-    setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+    setCurrent((prev) => (prev - 1 + coreValues.length) % coreValues.length);
   }, []);
 
   useEffect(() => {
@@ -50,10 +50,10 @@ const Testimonials = () => {
     return () => clearInterval(timer);
   }, [isPaused, next]);
 
-  const t = testimonials[current];
+  const t = coreValues[current];
 
   return (
-    <section id="testimonials" style={{
+    <section id="philosophy" style={{
       padding: '10rem var(--pad-x)',
       position: 'relative'
     }}>
@@ -79,13 +79,13 @@ const Testimonials = () => {
           textTransform: 'uppercase', letterSpacing: '0.15em',
           color: 'var(--accent)', display: 'block', marginBottom: '1.5rem'
         }}>
-          What People Say
+          My Approach
         </span>
         <h2 style={{
           fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 3.5rem)',
           fontWeight: 700, color: 'var(--fg)', letterSpacing: '-0.02em'
         }}>
-          Testimonials.
+          Core Values.
         </h2>
       </motion.div>
 
@@ -145,8 +145,7 @@ const Testimonials = () => {
                 width: '48px', height: '48px', borderRadius: '50%',
                 background: 'linear-gradient(135deg, var(--accent), var(--accent-2))',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontFamily: 'var(--font-mono)', fontSize: '0.8rem',
-                fontWeight: 700, color: 'var(--bg)',
+                fontSize: '1.2rem',
                 flexShrink: 0
               }}>
                 {t.initials}
@@ -172,7 +171,7 @@ const Testimonials = () => {
         {/* Navigation Arrows */}
         <button
           onClick={prev}
-          aria-label="Previous testimonial"
+          aria-label="Previous value"
           style={{
             position: 'absolute', left: '-3.5rem', top: '50%',
             transform: 'translateY(-50%)',
@@ -191,7 +190,7 @@ const Testimonials = () => {
         </button>
         <button
           onClick={next}
-          aria-label="Next testimonial"
+          aria-label="Next value"
           style={{
             position: 'absolute', right: '-3.5rem', top: '50%',
             transform: 'translateY(-50%)',
@@ -215,11 +214,11 @@ const Testimonials = () => {
         display: 'flex', justifyContent: 'center', gap: '0.75rem',
         marginTop: '2.5rem'
       }}>
-        {testimonials.map((_, idx) => (
+        {coreValues.map((_, idx) => (
           <button
             key={idx}
             onClick={() => setCurrent(idx)}
-            aria-label={`Go to testimonial ${idx + 1}`}
+            aria-label={`Go to value ${idx + 1}`}
             style={{
               width: idx === current ? '32px' : '10px',
               height: '10px',

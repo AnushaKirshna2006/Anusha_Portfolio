@@ -7,7 +7,7 @@ const FloatingTag = ({ text, delay = 0, top, left, right, bottom, icon }) => {
     <motion.div
       initial={{ opacity: 0, scale: 0.8 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: false, margin: "-100px" }}
+      viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6, delay: delay }}
       style={{
         position: 'absolute',
@@ -54,7 +54,9 @@ const About = ({ onOpenInfo }) => {
   return (
     <section id="about" ref={containerRef} style={{
       position: 'relative',
-      padding: '8rem var(--pad-x) 4rem'
+      padding: '8rem var(--pad-x) 4rem',
+      background: 'transparent',
+      overflow: 'hidden'
     }}>
 
       {/* Background Soft Glow */}
@@ -76,7 +78,7 @@ const About = ({ onOpenInfo }) => {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: "-100px" }}
+            viewport={{ once: true, margin: "-100px" }}
             style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '0.8rem',
@@ -92,7 +94,7 @@ const About = ({ onOpenInfo }) => {
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: "-100px" }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
             style={{
               fontFamily: 'var(--font-display)',
@@ -110,7 +112,7 @@ const About = ({ onOpenInfo }) => {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: "-100px" }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.2, delay: 0.15 }}
             style={{
               fontFamily: 'var(--font-body)',
@@ -128,7 +130,7 @@ const About = ({ onOpenInfo }) => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: "-100px" }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.2, delay: 0.25 }}
             style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '5rem' }}
           >
@@ -173,7 +175,7 @@ const About = ({ onOpenInfo }) => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: "-100px" }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.2, delay: 0.35 }}
             style={{
               display: 'flex',
@@ -211,7 +213,7 @@ const About = ({ onOpenInfo }) => {
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: false, margin: "-100px" }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.5, ease: "easeOut" }}
             style={{
               position: 'absolute', top: '15%', left: '50%', transform: 'translateX(-50%) translateZ(0)',
@@ -226,7 +228,7 @@ const About = ({ onOpenInfo }) => {
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, margin: "-100px" }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
             style={{
               position: 'relative',

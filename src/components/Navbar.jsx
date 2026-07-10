@@ -93,12 +93,12 @@ const Navbar = ({ onOpenInfo }) => {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
           className="glass-pill"
           style={{ 
-            display: 'flex', alignItems: 'center', padding: '1rem 2rem', 
-            gap: 'clamp(1.5rem, 4vw, 4rem)', pointerEvents: 'auto',
+            display: 'flex', alignItems: 'center', padding: '1.2rem 4rem', 
+            gap: 'clamp(2rem, 5vw, 6rem)', pointerEvents: 'auto',
             boxShadow: 'var(--glass-shadow)'
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', paddingRight: 'clamp(1rem, 3vw, 3rem)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', paddingRight: 'clamp(2rem, 4vw, 4rem)' }}>
             <button 
               onClick={goHome}
               className="link-hover"
@@ -112,12 +112,8 @@ const Navbar = ({ onOpenInfo }) => {
           </div>
 
           {/* Desktop Nav Links */}
-          <div className="nav-links-desktop" style={{ display: 'flex', alignItems: 'center', gap: '2rem', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', textTransform: 'uppercase', color: 'var(--fg)', fontWeight: 500 }}>
-            <Magnetic>
-              <button onClick={toggleSound} className="link-hover" style={navLinkStyle('')}>
-                {soundEnabled ? 'SOUND: ON' : 'SOUND: OFF'}
-              </button>
-            </Magnetic>
+          <div className="nav-links-desktop" style={{ display: 'flex', alignItems: 'center', gap: '3rem', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', textTransform: 'uppercase', color: 'var(--fg)', fontWeight: 500 }}>
+
             <Magnetic>
               <button 
                 onClick={() => {
@@ -178,12 +174,7 @@ const Navbar = ({ onOpenInfo }) => {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
-            <motion.button 
-              initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.05 }}
-              onClick={() => navAction(() => toggleSound())}
-            >
-              Sound: {soundEnabled ? 'On' : 'Off'}
-            </motion.button>
+
             <motion.button 
               initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.1 }}
               onClick={() => navAction(() => {

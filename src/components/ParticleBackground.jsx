@@ -20,7 +20,7 @@ const ParticleBackground = ({ style }) => {
             value: "transparent",
           },
         },
-        fpsLimit: 60,
+        fpsLimit: 30,
         interactivity: {
           events: {
             onClick: {
@@ -35,7 +35,7 @@ const ParticleBackground = ({ style }) => {
           },
           modes: {
             push: {
-              quantity: 4,
+              quantity: 2,
             },
             repulse: {
               distance: 100,
@@ -67,9 +67,9 @@ const ParticleBackground = ({ style }) => {
           number: {
             density: {
               enable: true,
-              area: 800,
+              area: 1000,
             },
-            value: 60,
+            value: 30,
           },
           opacity: {
             value: 0.5,

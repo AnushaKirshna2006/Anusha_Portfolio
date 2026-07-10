@@ -12,127 +12,149 @@ const PhysicsSkills = () => {
   const engineRef = useRef(null);
 
   useEffect(() => {
+    let engine;
+    let render;
+    let runner;
     const { Engine, Render, Runner, World, Bodies, Mouse, MouseConstraint, Composite } = Matter;
 
-    const width = sceneRef.current.clientWidth;
-    const height = sceneRef.current.clientHeight;
+    const initPhysics = (width, height) => {
+      // Create engine
+      engine = Engine.create();
+      engineRef.current = engine;
+      const world = engine.world;
 
-    // Create engine
-    const engine = Engine.create();
-    engineRef.current = engine;
-    const world = engine.world;
+      // Create renderer
+      render = Render.create({
+        element: sceneRef.current,
+        engine: engine,
+        options: {
+          width,
+          height,
+          background: 'transparent',
+          wireframes: false,
+          pixelRatio: window.devicePixelRatio
+        }
+      });
 
-    // Create renderer
-    const render = Render.create({
-      element: sceneRef.current,
-      engine: engine,
-      options: {
-        width,
-        height,
-        background: 'transparent',
-        wireframes: false,
-        pixelRatio: window.devicePixelRatio
-      }
-    });
+      Render.run(render);
 
-    Render.run(render);
+      // Create runner
+      runner = Runner.create();
+      Runner.run(runner, engine);
 
-    // Create runner
-    const runner = Runner.create();
-    Runner.run(runner, engine);
+      // Add boundaries (walls, floor, ceiling)
+      const wallOptions = { isStatic: true, render: { visible: false } };
+      World.add(world, [
+        Bodies.rectangle(width / 2, -200, width * 2, 100, wallOptions), // Ceiling
+        Bodies.rectangle(width / 2, height + 50, width * 2, 100, wallOptions), // Floor
+        Bodies.rectangle(-50, height / 2, 100, height * 2, wallOptions), // Left wall
+        Bodies.rectangle(width + 50, height / 2, 100, height * 2, wallOptions) // Right wall
+      ]);
 
-    // Add boundaries (walls, floor, ceiling)
-    const wallOptions = { isStatic: true, render: { visible: false } };
-    World.add(world, [
-      Bodies.rectangle(width / 2, -50, width, 100, wallOptions), // Ceiling
-      Bodies.rectangle(width / 2, height + 50, width, 100, wallOptions), // Floor
-      Bodies.rectangle(-50, height / 2, 100, height, wallOptions), // Left wall
-      Bodies.rectangle(width + 50, height / 2, 100, height, wallOptions) // Right wall
-    ]);
+      // Create skill bodies
+      const skillBodies = skills.map((skill, index) => {
+        const x = Math.random() * (width - 200) + 100;
+        const y = Math.random() * (height / 2) + 50; // Spawn INSIDE the visible area
+        
+        const skillText = skill;
+        const ctx = document.createElement('canvas').getContext('2d');
+        ctx.font = '16px monospace';
+        const textWidth = ctx.measureText(skillText).width;
+        
+        const bodyWidth = textWidth + 40;
+        const bodyHeight = 40;
 
-    // Create skill bodies
-    const skillBodies = skills.map((skill, index) => {
-      // Create a capsule/pill shape using a rectangle with chamfer
-      const x = Math.random() * (width - 200) + 100;
-      const y = -(Math.random() * 500 + 100); // Start above screen
-      
-      const skillText = skill;
-      const ctx = document.createElement('canvas').getContext('2d');
-      ctx.font = '16px monospace';
-      const textWidth = ctx.measureText(skillText).width;
-      
-      const bodyWidth = textWidth + 40;
-      const bodyHeight = 40;
+        return Bodies.rectangle(x, y, bodyWidth, bodyHeight, {
+          chamfer: { radius: bodyHeight / 2 },
+          restitution: 0.8,
+          friction: 0.1,
+          render: {
+            fillStyle: '#1a1a1a',
+            strokeStyle: '#e63030',
+            lineWidth: 1,
+            sprite: {
+              texture: createTextTexture(skillText, bodyWidth, bodyHeight),
+              xScale: 1,
+              yScale: 1
+            }
+          }
+        });
+      });
 
-      return Bodies.rectangle(x, y, bodyWidth, bodyHeight, {
-        chamfer: { radius: bodyHeight / 2 },
-        restitution: 0.8, // Bounciness
-        friction: 0.1,
-        render: {
-          fillStyle: '#1a1a1a',
-          strokeStyle: '#e63030',
-          lineWidth: 1,
-          sprite: {
-            texture: createTextTexture(skillText, bodyWidth, bodyHeight),
-            xScale: 1,
-            yScale: 1
+      World.add(world, skillBodies);
+
+      // Add mouse control
+      const mouse = Mouse.create(render.canvas);
+      const mouseConstraint = MouseConstraint.create(engine, {
+        mouse: mouse,
+        constraint: {
+          stiffness: 0.2,
+          render: {
+            visible: false
           }
         }
       });
-    });
 
-    World.add(world, skillBodies);
+      World.add(world, mouseConstraint);
+      render.mouse = mouse;
+    };
 
-    // Add mouse control
-    const mouse = Mouse.create(render.canvas);
-    const mouseConstraint = MouseConstraint.create(engine, {
-      mouse: mouse,
-      constraint: {
-        stiffness: 0.2,
-        render: {
-          visible: false
+    let isInitialized = false;
+
+    // Handle resize via ResizeObserver
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        const newWidth = entry.contentRect.width;
+        const newHeight = entry.contentRect.height;
+        
+        if (newWidth === 0 || newHeight === 0) continue;
+
+        if (!isInitialized) {
+          initPhysics(newWidth, newHeight);
+          isInitialized = true;
+        } else if (render && engine) {
+          render.canvas.width = newWidth;
+          render.canvas.height = newHeight;
+          render.options.width = newWidth;
+          render.options.height = newHeight;
+          
+          // Update boundaries
+          const world = engine.world;
+          const ceiling = world.bodies[0];
+          Matter.Body.setPosition(ceiling, { x: newWidth / 2, y: -200 });
+          Matter.Body.setVertices(ceiling, Bodies.rectangle(newWidth / 2, -200, newWidth * 2, 100).vertices);
+
+          const floor = world.bodies[1];
+          Matter.Body.setPosition(floor, { x: newWidth / 2, y: newHeight + 50 });
+          Matter.Body.setVertices(floor, Bodies.rectangle(newWidth / 2, newHeight + 50, newWidth * 2, 100).vertices);
+          
+          const rightWall = world.bodies[3];
+          Matter.Body.setPosition(rightWall, { x: newWidth + 50, y: newHeight / 2 });
+          Matter.Body.setVertices(rightWall, Bodies.rectangle(newWidth + 50, newHeight / 2, 100, newHeight * 2).vertices);
         }
       }
     });
 
-    World.add(world, mouseConstraint);
-
-    // Keep the mouse in sync with rendering
-    render.mouse = mouse;
-
-    // Handle resize
-    const handleResize = () => {
-      const newWidth = sceneRef.current.clientWidth;
-      const newHeight = sceneRef.current.clientHeight;
-      
-      render.canvas.width = newWidth;
-      render.canvas.height = newHeight;
-      render.options.width = newWidth;
-      render.options.height = newHeight;
-      
-      // Update floor position
-      const floor = world.bodies[1];
-      Matter.Body.setPosition(floor, { x: newWidth / 2, y: newHeight + 50 });
-      Matter.Body.setVertices(floor, Bodies.rectangle(newWidth / 2, newHeight + 50, newWidth, 100).vertices);
-      
-      // Update right wall position
-      const rightWall = world.bodies[3];
-      Matter.Body.setPosition(rightWall, { x: newWidth + 50, y: newHeight / 2 });
-      Matter.Body.setVertices(rightWall, Bodies.rectangle(newWidth + 50, newHeight / 2, 100, newHeight).vertices);
-    };
-
-    window.addEventListener('resize', handleResize);
+    if (sceneRef.current) {
+      resizeObserver.observe(sceneRef.current);
+    }
 
     return () => {
-      window.removeEventListener('resize', handleResize);
-      Render.stop(render);
-      Runner.stop(runner);
-      World.clear(world);
-      Engine.clear(engine);
-      render.canvas.remove();
-      render.canvas = null;
-      render.context = null;
-      render.textures = {};
+      resizeObserver.disconnect();
+      if (render) {
+        Render.stop(render);
+        render.canvas.remove();
+        render.canvas = null;
+        render.context = null;
+        render.textures = {};
+      }
+      if (runner) {
+        Runner.stop(runner);
+      }
+      if (engine) {
+        World.clear(engine.world);
+        Engine.clear(engine);
+      }
     };
   }, []);
 

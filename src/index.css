@@ -94,13 +94,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .glass-panel {
   background: var(--glass-bg);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
   border-radius: var(--radius-lg);
   position: relative;
   overflow: hidden;
+  will-change: transform, backdrop-filter;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* Subtle inner glare for the glass panel */
@@ -115,26 +118,31 @@ h1, h2, h3, h4, h5, h6 {
 
 .glass-pill {
   background: rgba(20, 30, 45, 0.5);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50px;
   box-shadow: var(--glass-pill-shadow);
+  will-change: transform, backdrop-filter;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* Base custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: var(--bg);
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .gradient-text {
@@ -227,6 +235,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 .project-image-wrap:hover .project-overlay-content {
   transform: translateY(0);
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -366,14 +382,16 @@ h1, h2, h3, h4, h5, h6 {
   position: fixed;
   inset: 0;
   background: rgba(3, 3, 5, 0.95);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   z-index: 999;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 2.5rem;
+  will-change: transform, backdrop-filter;
+  transform: translateZ(0);
 }
 .mobile-nav-overlay button {
   background: none;
@@ -391,35 +409,45 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ═══════════════════════════════════════════════════════
-   10. MOBILE RESPONSIVENESS
+   10. RESPONSIVE DESIGN (TABLET & MOBILE)
    ═══════════════════════════════════════════════════════ */
-@media (max-width: 768px) {
+
+/* --- DESKTOP DEFAULTS (Overridden by media queries below) --- */
+.home-video-container { width: 40%; }
+.home-text-container { max-width: 60%; }
+
+/* --- TABLET BREAKPOINT (max-width: 1024px) --- */
+@media (max-width: 1024px) {
   :root {
     --pad-x: 6vw;
   }
 
-  /* Show hamburger, hide desktop nav links */
-  .hamburger {
-    display: flex;
-  }
-  .nav-links-desktop {
-    display: none !important;
+  /* Typography scale down */
+  #home h1 {
+    font-size: clamp(3rem, 8vw, 5rem) !important;
   }
 
-  /* About section: stack vertically */
+  /* Hero Section Layout */
+  .home-video-container {
+    width: 100% !important;
+    opacity: 0.25;
+    z-index: 0 !important;
+  }
+  .home-text-container {
+    max-width: 100% !important;
+  }
+
+  /* About section */
   #about {
     grid-template-columns: 1fr !important;
     padding: 6rem var(--pad-x) !important;
+    gap: 3rem !important;
   }
-  #about > div:first-child {
+  #about > div {
     grid-column: 1 / -1 !important;
-  }
-  #about > div:last-child {
-    grid-column: 1 / -1 !important;
-    margin-top: 3rem !important;
   }
 
-  /* Skills section: stack vertically */
+  /* Skills section */
   #skills > div:first-child {
     grid-template-columns: 1fr !important;
     gap: 4rem !important;
@@ -429,27 +457,89 @@ h1, h2, h3, h4, h5, h6 {
     top: 0 !important;
   }
 
-  /* Experience: reduce gap */
-  #experience {
-    padding: 4rem var(--pad-x) !important;
+  /* Works/Featured Projects */
+  .glass-panel[style*="grid-template-columns"], 
+  #featured-projects .glass-panel {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Services */
+  #services > div:last-child {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
   }
 
-  /* Works: stack project rows */
-  .glass-panel[style*="grid-template-columns"] {
+  /* Contact Page Grid (1fr 2.5fr) */
+  div[style*="1fr 2.5fr"] {
     grid-template-columns: 1fr !important;
+    gap: 4rem !important;
+    margin-top: 4rem !important;
+  }
+}
+
+/* --- MOBILE BREAKPOINT (max-width: 768px) --- */
+@media (max-width: 768px) {
+  /* Show hamburger, hide desktop nav links */
+  .hamburger {
+    display: flex;
+  }
+  .nav-links-desktop {
+    display: none !important;
+  }
+
+  /* Experience & Education: reduce padding/gaps */
+  #experience, #education, #certifications {
+    padding: 4rem var(--pad-x) !important;
   }
 
   /* Contact footer: stack columns */
   #contact {
     padding: 4rem var(--pad-x) 0 !important;
   }
+  #footer > div {
+    grid-template-columns: 1fr !important;
+    gap: 2rem !important;
+  }
 
-  /* Hero section typography */
-  #home h1 {
-    font-size: clamp(3rem, 12vw, 5rem) !important;
+  /* Services bento grid: 1 column on mobile */
+  #services > div:last-child {
+    grid-template-columns: 1fr !important;
+  }
+  #services .service-card {
+    grid-column: span 1 !important;
+  }
+
+  /* Testimonials: hide prev/next arrows on mobile */
+  #testimonials button[aria-label="Previous testimonial"],
+  #testimonials button[aria-label="Next testimonial"] {
+    display: none;
+  }
+
+  /* Featured projects: reduce card size */
+  #featured-projects .glass-panel {
+    width: 90vw !important;
+    height: auto !important;
+    min-height: 40vh !important;
+    padding: 1.5rem !important;
+  }
+
+  /* Project Details Page Metadata */
+  div[style*="repeat(4, 1fr)"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 2rem !important;
+  }
+
+  /* Works list layout */
+  #works .glass-panel {
+    padding: 2rem 1.5rem !important;
+  }
+
+  /* Contact Page Form Fields (1fr 1fr) */
+  div[style*="1fr 1fr"] {
+    grid-template-columns: 1fr !important;
   }
 }
 
+/* --- SMALL MOBILE BREAKPOINT (max-width: 480px) --- */
 @media (max-width: 480px) {
   :root {
     --pad-x: 5vw;
@@ -469,6 +559,11 @@ h1, h2, h3, h4, h5, h6 {
     height: 40px;
     bottom: 1.5rem;
     right: 1.5rem;
+  }
+
+  /* Project Details Page - stack metadata completely */
+  div[style*="repeat(4, 1fr)"] {
+    grid-template-columns: 1fr !important;
   }
 }
 
@@ -547,28 +642,3 @@ h1, h2, h3, h4, h5, h6 {
 .stagger-3 { animation-delay: 0.3s; }
 .stagger-4 { animation-delay: 0.4s; }
 .stagger-5 { animation-delay: 0.5s; }
-
-/* ═══════════════════════════════════════════════════════
-   12. NEW SECTION RESPONSIVE RULES
-   ═══════════════════════════════════════════════════════ */
-@media (max-width: 768px) {
-  /* Services bento grid: 1 column on mobile */
-  #services > div:last-child {
-    grid-template-columns: 1fr !important;
-  }
-  #services .service-card {
-    grid-column: span 1 !important;
-  }
-
-  /* Testimonials: hide prev/next arrows on mobile */
-  #testimonials button[aria-label="Previous testimonial"],
-  #testimonials button[aria-label="Next testimonial"] {
-    display: none;
-  }
-
-  /* Featured projects: reduce card size */
-  #featured-projects .glass-panel {
-    width: 85vw !important;
-    height: 50vh !important;
-  }
-}

@@ -14,7 +14,7 @@ const projects = [
     type: 'Full-Stack Web App',
     category: 'Full-Stack',
     title: 'Virtual Study Buddy',
-    desc: 'A full-stack web application connecting university students for peer-to-peer collaborative learning, with a focus on intuitive UX and inclusive design. Features JWT-based authentication, a preference-driven matching algorithm, and a MongoDB backend.',
+    desc: 'A full-stack web application connecting university students for peer-to-peer collaborative learning, with a focus on intuitive UX and inclusive design. It seamlessly integrates advanced filtering systems to group users by their study preferences and time zones. The platform also offers interactive whiteboarding and resource-sharing capabilities to simulate an immersive, real-world study environment, drastically enhancing remote educational experiences.',
     tech: ['React', 'Node.js', 'MongoDB', 'JWT Auth'],
     img: '/assets/images/project1.png',
     github: 'https://github.com/AnushaKirshna2006'
@@ -26,7 +26,7 @@ const projects = [
     type: 'Frontend Weather',
     category: 'Frontend',
     title: 'Cosmic Weather App',
-    desc: 'A fully responsive weather forecasting application that fetches and renders real-time meteorological data, achieving sub-second load performance across device breakpoints. Designed an intuitive, accessible UI with TailwindCSS and integrated the Open-Meteo API.',
+    desc: 'A fully responsive weather forecasting application that fetches and renders real-time meteorological data with sub-second load performance across device breakpoints. It features dynamic weather-driven animations, an interactive global map for location selection, and a comprehensive 7-day forecast with hourly breakdowns. The design utilizes deep atmospheric colors and micro-interactions that elevate the mundane task of checking the weather into a visually engaging experience.',
     tech: ['React', 'TailwindCSS', 'Node.js', 'API'],
     img: '/assets/images/project2.png',
     github: 'https://github.com/AnushaKirshna2006'
@@ -38,7 +38,7 @@ const projects = [
     type: 'OOP Desktop/Web',
     category: 'Desktop',
     title: 'Classic Game Suite',
-    desc: 'Engineered game logic and polished user interfaces for Sokoban, Tic-Tac-Toe, and Rock Paper Scissors, with a focus on clean architecture and smooth user interaction. Applied object-oriented programming principles and design patterns.',
+    desc: 'Engineered game logic and polished user interfaces for Sokoban, Tic-Tac-Toe, and Rock Paper Scissors, focusing on clean architecture. This suite demonstrates deep expertise in system design by managing complex game states, scoring systems, and AI opponent logic within a unified framework. It offers customizable themes, difficulty levels, and persistent local high scores, providing a nostalgic yet modernized gaming experience.',
     tech: ['Java', 'VB.NET'],
     img: '/assets/images/project3.png',
     github: 'https://github.com/AnushaKirshna2006'

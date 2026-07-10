@@ -3,16 +3,35 @@ import { motion } from 'framer-motion';
 
 const Preloader = ({ onComplete }) => {
   const [stage, setStage] = useState('loading');
+  const [percent, setPercent] = useState(0);
 
   useEffect(() => {
-    // Stage 1: loading
+    // Percentage ticker
+    const duration = 1500;
+    const intervalTime = 30;
+    const steps = duration / intervalTime;
+    const increment = 100 / steps;
+    let currentPercent = 0;
+
+    const counterInterval = setInterval(() => {
+      currentPercent += increment;
+      if (currentPercent >= 100) {
+        currentPercent = 100;
+        clearInterval(counterInterval);
+      }
+      setPercent(Math.floor(currentPercent));
+    }, intervalTime);
+
     // Stage 2: exiting after 2.5 seconds
     const timer = setTimeout(() => {
       setStage('exiting');
       setTimeout(onComplete, 800); // give it time to slide up
     }, 2500);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearInterval(counterInterval);
+      clearTimeout(timer);
+    };
   }, [onComplete]);
 
   return (
@@ -56,23 +75,38 @@ const Preloader = ({ onComplete }) => {
           A.K
         </motion.h1>
 
-        {/* Name */}
+        {/* Name and Percentage */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
           style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: '1rem',
-            color: 'var(--fg-dim)',
-            textTransform: 'uppercase',
-            letterSpacing: '0.2em',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%',
             marginTop: '1rem',
             position: 'relative',
             zIndex: 1
           }}
         >
-          Anusha Kirshna
+          <div style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '1rem',
+            color: 'var(--fg-dim)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.2em',
+          }}>
+            Anusha Kirshna
+          </div>
+          <div style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: '1.2rem',
+            color: 'var(--accent)',
+            fontWeight: 700,
+          }}>
+            {percent}%
+          </div>
         </motion.div>
 
         {/* Loading Bar indicator */}

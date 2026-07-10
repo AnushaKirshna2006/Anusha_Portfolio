@@ -10,7 +10,8 @@ const projects = [
     title: 'Virtual Study Buddy',
     subtitle: 'Full-Stack Web App',
     img: '/assets/images/project1.png',
-    color: 'rgba(0, 242, 254, 0.15)'
+    color: 'rgba(0, 242, 254, 0.15)',
+    tech: ['React', 'Node.js', 'MongoDB', 'Express']
   },
   {
     id: 2,
@@ -18,7 +19,8 @@ const projects = [
     title: 'Cosmic Weather',
     subtitle: 'Frontend Application',
     img: '/assets/images/project2.png',
-    color: 'rgba(79, 172, 254, 0.15)'
+    color: 'rgba(79, 172, 254, 0.15)',
+    tech: ['JavaScript', 'HTML5', 'CSS3', 'OpenWeatherAPI']
   },
   {
     id: 3,
@@ -26,7 +28,8 @@ const projects = [
     title: 'Classic Game Suite',
     subtitle: 'OOP Desktop/Web',
     img: '/assets/images/project3.png',
-    color: 'rgba(74, 222, 128, 0.15)'
+    color: 'rgba(74, 222, 128, 0.15)',
+    tech: ['Java', 'Object Oriented Programming', 'Swing']
   }
 ];
 
@@ -112,6 +115,7 @@ const FeaturedProjects = () => {
 const FeaturedCard = ({ proj, idx, navigateWithTransition }) => {
   const cardRef = useRef(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   
   useEffect(() => {
     const img = new Image();
@@ -146,6 +150,9 @@ const FeaturedCard = ({ proj, idx, navigateWithTransition }) => {
         <div
           onClick={() => navigateWithTransition(`/project/${proj.id}`)}
           className="glass-panel"
+          data-cursor="view"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
           style={{
             display: 'grid',
             gridTemplateColumns: isEven ? '1.4fr 1fr' : '1fr 1.4fr',
@@ -193,6 +200,56 @@ const FeaturedCard = ({ proj, idx, navigateWithTransition }) => {
               ? 'linear-gradient(to right, transparent 60%, rgba(3,3,5,0.8) 100%)'
               : 'linear-gradient(to left, transparent 60%, rgba(3,3,5,0.8) 100%)'
           }} />
+
+          {/* Hover Overlay */}
+          <AnimatePresence>
+            {isHovered && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.3 }}
+                style={{
+                  position: 'absolute',
+                  bottom: '1rem',
+                  left: isEven ? '1rem' : 'auto',
+                  right: isEven ? 'auto' : '1rem',
+                  padding: '1.5rem',
+                  background: 'rgba(10, 15, 25, 0.65)',
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)',
+                  borderRadius: '16px',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  zIndex: 10,
+                  display: 'flex',
+                  gap: '0.5rem',
+                  flexWrap: 'wrap',
+                  maxWidth: '80%'
+                }}
+              >
+                {proj.tech?.map((t, i) => (
+                  <motion.span
+                    key={t}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 + i * 0.05 }}
+                    style={{
+                      background: 'rgba(0, 242, 254, 0.1)',
+                      border: '1px solid rgba(0, 242, 254, 0.3)',
+                      color: 'var(--accent)',
+                      padding: '0.3rem 0.8rem',
+                      borderRadius: '50px',
+                      fontSize: '0.7rem',
+                      fontFamily: 'var(--font-mono)',
+                      textTransform: 'uppercase'
+                    }}
+                  >
+                    {t}
+                  </motion.span>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Content Side */}
