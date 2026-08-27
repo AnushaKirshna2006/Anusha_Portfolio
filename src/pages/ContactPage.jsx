@@ -4,6 +4,7 @@ import { useTransition } from '../components/TransitionContext';
 import Magnetic from '../components/Magnetic';
 import ParticleBackground from '../components/ParticleBackground';
 import emailjs from '@emailjs/browser';
+import SEO from '../components/SEO';
 
 const ContactPage = () => {
   const { navigateWithTransition } = useTransition();
@@ -21,6 +22,8 @@ const ContactPage = () => {
   };
 
   return (
+    <>
+    <SEO title="Contact" description="Get in touch for freelance projects and job opportunities." url="/contact" />
     <section style={{ height: '100vh', width: '100vw', background: 'var(--bg)', color: 'var(--fg)', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
       <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
         <ParticleBackground />
@@ -111,6 +114,7 @@ const ContactPage = () => {
         <span style={{ color: 'var(--fg-muted)', letterSpacing: '0.05em' }}>© {new Date().getFullYear()} ALL RIGHTS RESERVED</span>
       </footer>
     </section>
+    </>
   );
 };
 

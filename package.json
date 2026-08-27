@@ -24,6 +24,7 @@
     "mermaid": "^11.15.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
+    "react-helmet-async": "^3.0.0",
     "react-router-dom": "^7.16.0",
     "three": "^0.184.0",
     "tsparticles": "^4.1.3"

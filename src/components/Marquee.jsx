@@ -18,12 +18,8 @@ const Marquee = ({ text = "HTML/CSS • JAVASCRIPT • REACT • TAILWINDCSS •
   const directionFactor = useRef(1);
 
   useAnimationFrame((t, delta) => {
-    // Constant slow speed moving left
-    let moveBy = -0.02 * (delta / 16); 
-
-    // Add a tiny speed boost based on scroll, but always moving left (absolute value)
-    moveBy += -0.01 * Math.abs(velocityFactor.get());
-    
+    // Constant slow speed moving left, ignoring scroll velocity
+    let moveBy = -0.01 * (delta / 16); 
     baseX.set(baseX.get() + moveBy);
   });
 

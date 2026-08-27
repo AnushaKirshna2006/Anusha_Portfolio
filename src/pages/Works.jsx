@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
-import WebGLImage from '../components/WebGLImage';
+import ProjectAnimation from '../components/ProjectAnimation';
 import { useTransition } from '../components/TransitionContext';
 import ScrambleText from '../components/ScrambleText';
 import RedCurve from '../components/RedCurve';
@@ -17,6 +17,7 @@ const projects = [
     desc: 'A full-stack web application connecting university students for peer-to-peer collaborative learning, with a focus on intuitive UX and inclusive design. It seamlessly integrates advanced filtering systems to group users by their study preferences and time zones. The platform also offers interactive whiteboarding and resource-sharing capabilities to simulate an immersive, real-world study environment, drastically enhancing remote educational experiences.',
     tech: ['React', 'Node.js', 'MongoDB', 'JWT Auth'],
     img: '/assets/images/project1.png',
+    video: '/assets/images/project1.webm',
     github: 'https://github.com/AnushaKirshna2006'
   },
   {
@@ -29,6 +30,7 @@ const projects = [
     desc: 'A fully responsive weather forecasting application that fetches and renders real-time meteorological data with sub-second load performance across device breakpoints. It features dynamic weather-driven animations, an interactive global map for location selection, and a comprehensive 7-day forecast with hourly breakdowns. The design utilizes deep atmospheric colors and micro-interactions that elevate the mundane task of checking the weather into a visually engaging experience.',
     tech: ['React', 'TailwindCSS', 'Node.js', 'API'],
     img: '/assets/images/project2.png',
+    video: '/assets/images/project2.webm',
     github: 'https://github.com/AnushaKirshna2006'
   },
   {
@@ -41,6 +43,7 @@ const projects = [
     desc: 'Engineered game logic and polished user interfaces for Sokoban, Tic-Tac-Toe, and Rock Paper Scissors, focusing on clean architecture. This suite demonstrates deep expertise in system design by managing complex game states, scoring systems, and AI opponent logic within a unified framework. It offers customizable themes, difficulty levels, and persistent local high scores, providing a nostalgic yet modernized gaming experience.',
     tech: ['Java', 'VB.NET'],
     img: '/assets/images/project3.png',
+    video: '/assets/images/project3.webm',
     github: 'https://github.com/AnushaKirshna2006'
   }
 ];
@@ -120,7 +123,7 @@ const ProjectRow = ({ proj, idx, navigateWithTransition }) => {
               className="project-image-wrap"
               style={{ width: '100%', aspectRatio: '16/10', position: 'relative', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)', cursor: 'pointer', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.5)', background: '#000' }}
             >
-              <WebGLImage src={proj.img} alt={proj.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />
+              <ProjectAnimation projectId={proj.id} />
               <div className="project-overlay" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%)' }}>
                 <div className="project-overlay-content" style={{ position: 'absolute', bottom: '2rem', left: '2rem', transform: 'none' }}>
                   <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.15em' }}>Explore Interactive</span>

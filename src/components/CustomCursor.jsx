@@ -49,16 +49,16 @@ const CustomCursor = () => {
     view: {
       scale: 4,
       opacity: 1,
-      backgroundColor: 'var(--accent)',
+      backgroundColor: '#2563eb', // solid blue
       border: 'none',
       mixBlendMode: 'normal'
     },
     text: {
       scale: 5,
       opacity: 1,
-      backgroundColor: '#ffffff',
-      border: 'none',
-      mixBlendMode: 'difference'
+      backgroundColor: 'rgba(37, 99, 235, 0.15)', // transparent blue
+      border: '1px solid rgba(37, 99, 235, 0.4)',
+      mixBlendMode: 'normal'
     }
   };
 

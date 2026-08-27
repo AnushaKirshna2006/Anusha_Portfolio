@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { useTransition } from './TransitionContext';
 import TiltCard from './TiltCard';
+import ProjectAnimation from './ProjectAnimation';
 
 const projects = [
   {
@@ -9,7 +10,8 @@ const projects = [
     num: '01',
     title: 'Virtual Study Buddy',
     subtitle: 'Full-Stack Web App',
-    img: '/assets/images/project1.png',
+    img: '/assets/images/Picture1.png',
+    video: '/assets/images/project1.webm',
     color: 'rgba(0, 242, 254, 0.15)',
     tech: ['React', 'Node.js', 'MongoDB', 'Express']
   },
@@ -19,6 +21,7 @@ const projects = [
     title: 'Cosmic Weather',
     subtitle: 'Frontend Application',
     img: '/assets/images/project2.png',
+    video: '/assets/images/project2.webm',
     color: 'rgba(79, 172, 254, 0.15)',
     tech: ['JavaScript', 'HTML5', 'CSS3', 'OpenWeatherAPI']
   },
@@ -28,6 +31,7 @@ const projects = [
     title: 'Classic Game Suite',
     subtitle: 'OOP Desktop/Web',
     img: '/assets/images/project3.png',
+    video: '/assets/images/project3.webm',
     color: 'rgba(74, 222, 128, 0.15)',
     tech: ['Java', 'Object Oriented Programming', 'Swing']
   }
@@ -169,14 +173,7 @@ const FeaturedCard = ({ proj, idx, navigateWithTransition }) => {
           overflow: 'hidden',
           order: isEven ? 1 : 2
         }}>
-          <motion.div style={{
-            position: 'absolute', inset: '-15%',
-            backgroundImage: `url(${proj.img})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            y: imgY,
-            scale: imgScale
-          }} />
+          <ProjectAnimation projectId={proj.id} />
           <AnimatePresence>
             {!isLoaded && (
               <motion.div

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import AmbientAura from '../components/AmbientAura';
@@ -8,21 +8,22 @@ import Skills from '../components/Skills';
 import Contact from '../components/Contact';
 import Marquee from '../components/Marquee';
 import TransitionPanel from '../components/TransitionPanel';
+import SEO from '../components/SEO';
 
 import Home from './Home';
 import About from '../components/About';
-import Works from './Works';
+const Works = lazy(() => import('./Works'));
 import Info from './Info';
 import Experience from '../components/Experience';
 import Education from '../components/Education';
 import Certifications from '../components/Certifications';
 
 // NEW sections
-import Services from '../components/Services';
-import Testimonials from '../components/Testimonials';
+const Services = lazy(() => import('../components/Services'));
+const Testimonials = lazy(() => import('../components/Testimonials'));
 
 import Footer from '../components/Footer';
-import Avatar3D from '../components/Avatar3D';
+const Avatar3D = lazy(() => import('../components/Avatar3D'));
 
 const MainLayout = () => {
   const [isInfoOpen, setIsInfoOpen] = useState(false);
@@ -47,6 +48,8 @@ const MainLayout = () => {
   }, []);
 
   return (
+    <>
+    <SEO title="Home" url="/" />
     <motion.main
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -62,7 +65,9 @@ const MainLayout = () => {
       <About onOpenInfo={(e) => { e.preventDefault(); triggerInfo(); }} />
       
       {/* 3. What I Do (NEW) */}
-      <Services />
+      <Suspense fallback={<div className="shimmer" style={{ minHeight: '50vh' }} />}>
+        <Services />
+      </Suspense>
 
       {/* 5. ScatterIntro */}
       <ScatterIntro />
@@ -80,12 +85,16 @@ const MainLayout = () => {
       <Experience />
       
       {/* 10. Testimonials (NEW) */}
-      <Testimonials />
+      <Suspense fallback={<div className="shimmer" style={{ minHeight: '50vh' }} />}>
+        <Testimonials />
+      </Suspense>
       
 
       
       {/* 12. Works (detailed list) */}
-      <Works />
+      <Suspense fallback={<div className="shimmer" style={{ minHeight: '80vh' }} />}>
+        <Works />
+      </Suspense>
       
       {/* 13. ScrollDistortion */}
       <ScrollDistortion />
@@ -111,8 +120,11 @@ const MainLayout = () => {
         }} 
       />
       
-      <Avatar3D />
+      <Suspense fallback={null}>
+        <Avatar3D />
+      </Suspense>
     </motion.main>
+    </>
   );
 };
 

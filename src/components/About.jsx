@@ -16,13 +16,6 @@ const FloatingTag = ({ text, delay = 0, top, left, right, bottom, icon }) => {
       }}
     >
       <motion.div
-        animate={{ y: [0, -15, 0] }}
-        transition={{
-          repeat: Infinity,
-          duration: 4,
-          ease: "easeInOut",
-          delay: delay
-        }}
         style={{
           background: 'rgba(20, 20, 20, 0.85)',
           border: '1px solid rgba(0, 242, 254, 0.2)',

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Magnetic from '../components/Magnetic';
 import { Link } from 'react-router-dom';
 import { certifications, CertCard, CertDetailModal, FilterPills, platforms } from '../components/Certifications';
+import SEO from '../components/SEO';
 
 const AllCertifications = () => {
   const [filter, setFilter] = useState('All');
@@ -17,6 +18,8 @@ const AllCertifications = () => {
     : certifications.filter(c => c.platform === filter);
 
   return (
+    <>
+    <SEO title="Certifications" description="A complete log of Anusha's professional certifications." url="/certifications" />
     <section style={{ 
       minHeight: '100vh', 
       background: 'var(--bg)', 
@@ -115,6 +118,7 @@ const AllCertifications = () => {
         )}
       </AnimatePresence>
     </section>
+    </>
   );
 };
 

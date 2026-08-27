@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import CustomCursor from './components/CustomCursor';
@@ -6,16 +6,17 @@ import Preloader from './components/Preloader';
 import SmoothScroll from './components/SmoothScroll';
 import NavDots from './components/NavDots';
 import MainLayout from './pages/MainLayout';
-import ProjectDetails from './pages/ProjectDetails';
-import ContactPage from './pages/ContactPage';
 import { TransitionProvider } from './components/TransitionContext';
 import { useSound } from './components/SoundContext';
-import AllCertifications from './pages/AllCertifications';
 import ScrollProgress from './components/ScrollProgress';
 import BackToTop from './components/BackToTop';
 import TerminalEasterEgg from './components/TerminalEasterEgg';
-import NotFound from './pages/NotFound';
 import PageTransition from './components/PageTransition';
+
+const ProjectDetails = lazy(() => import('./pages/ProjectDetails'));
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const AllCertifications = lazy(() => import('./pages/AllCertifications'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -32,8 +33,8 @@ const App = () => {
 
   useEffect(() => {
     const handleMouseClick = (e) => {
-      // Play sound if a button, link, or link-hover element is clicked
-      if (e.target.closest('a') || e.target.closest('button') || e.target.closest('.link-hover') || e.target.closest('.glass-pill')) {
+      // Play sound if an interactive element is clicked
+      if (e.target.closest('a, button, .link-hover, .glass-pill, [data-cursor="view"], .chr-hover')) {
         playTick();
       }
     };
@@ -53,15 +54,17 @@ const App = () => {
         <Preloader onComplete={() => setLoading(false)} />
       ) : (
         <TransitionProvider>
-          <AnimatePresence mode="wait">
-            <Routes location={location} key={location.pathname}>
-              <Route path="/" element={<PageTransition><MainLayout /></PageTransition>} />
-              <Route path="/project/:id" element={<PageTransition><ProjectDetails /></PageTransition>} />
-              <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
-              <Route path="/certifications" element={<PageTransition><AllCertifications /></PageTransition>} />
-              <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
-            </Routes>
-          </AnimatePresence>
+          <Suspense fallback={<div className="shimmer" style={{ position: 'fixed', inset: 0, zIndex: 9999 }} />}>
+            <AnimatePresence mode="wait">
+              <Routes location={location} key={location.pathname}>
+                <Route path="/" element={<PageTransition><MainLayout /></PageTransition>} />
+                <Route path="/project/:id" element={<PageTransition><ProjectDetails /></PageTransition>} />
+                <Route path="/contact" element={<PageTransition><ContactPage /></PageTransition>} />
+                <Route path="/certifications" element={<PageTransition><AllCertifications /></PageTransition>} />
+                <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+              </Routes>
+            </AnimatePresence>
+          </Suspense>
         </TransitionProvider>
       )}
     </SmoothScroll>

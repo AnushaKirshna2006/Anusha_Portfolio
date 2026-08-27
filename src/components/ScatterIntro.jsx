@@ -5,7 +5,7 @@ import ParallaxImage from './ParallaxImage';
 const paragraph = "I believe great software is born at the intersection of logic and emotion. Every line of code I write is an opportunity to create something that not only works flawlessly but moves the people who use it. Design is not decoration — it is communication. I build experiences that respect the user, challenge convention, and push pixels to tell stories.";
 
 const projects = [
-  { id: 1, num: '01', title: 'Virtual Study Buddy', img: '/assets/images/project1.png' },
+  { id: 1, num: '01', title: 'Virtual Study Buddy', img: '/assets/images/Picture1.png' },
   { id: 2, num: '02', title: 'Cosmic Weather App', img: '/assets/images/project2.png' },
   { id: 3, num: '03', title: 'Classic Game Suite', img: '/assets/images/project3.png' }
 ];

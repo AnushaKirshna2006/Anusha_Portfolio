@@ -48,26 +48,9 @@ export const CursorProvider = ({ children }) => {
       setCursorColor('var(--accent)');
     };
 
-    const handleMouseClick = (e) => {
-      const target = e.target;
-      if (
-        target.closest('[data-cursor="view"]') ||
-        target.tagName.toLowerCase() === 'a' ||
-        target.tagName.toLowerCase() === 'button' ||
-        target.closest('a') ||
-        target.closest('button') ||
-        target.classList.contains('chr-hover') ||
-        target.classList.contains('link-hover')
-      ) {
-        playTick();
-      }
-    };
-
     document.addEventListener('mouseover', handleMouseOver);
-    document.addEventListener('click', handleMouseClick);
     return () => {
       document.removeEventListener('mouseover', handleMouseOver);
-      document.removeEventListener('click', handleMouseClick);
     };
   }, [cursorVariant, playTick]);
 

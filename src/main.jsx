@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import App from './App.jsx';
 import { CursorProvider } from './components/CursorContext.jsx';
 import { SoundProvider } from './components/SoundContext.jsx';
@@ -9,14 +10,16 @@ import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ThemeProvider>
-      <SoundProvider>
-        <CursorProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </CursorProvider>
-      </SoundProvider>
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider>
+        <SoundProvider>
+          <CursorProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </CursorProvider>
+        </SoundProvider>
+      </ThemeProvider>
+    </HelmetProvider>
   </React.StrictMode>,
 );

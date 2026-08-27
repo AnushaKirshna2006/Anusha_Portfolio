@@ -10,7 +10,7 @@ const DraggableMoodboard = () => {
     { type: 'sticker', text: 'Three.js', color: '#a855f7', x: 15, y: 60, rotate: -15, z: 3 },
     { type: 'note', text: 'Design is not how it looks, but how it works. - Jobs', x: 50, y: 40, rotate: 5, z: 4 },
     { type: 'sticker', text: 'Figma', color: '#ec4899', x: 80, y: 65, rotate: 20, z: 5 },
-    { type: 'photo', src: '/assets/images/project1.png', x: 30, y: 70, rotate: -8, z: 6 }
+    { type: 'photo', src: '/assets/images/Picture1.png', x: 30, y: 70, rotate: -8, z: 6 }
   ];
 
   return (

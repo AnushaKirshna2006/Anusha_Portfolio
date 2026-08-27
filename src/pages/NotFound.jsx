@@ -3,11 +3,14 @@ import { motion } from 'framer-motion';
 import { useTransition } from '../components/TransitionContext';
 import ScrambleText from '../components/ScrambleText';
 import Magnetic from '../components/Magnetic';
+import SEO from '../components/SEO';
 
 const NotFound = () => {
   const { navigateWithTransition } = useTransition();
 
   return (
+    <>
+    <SEO title="404 - Not Found" description="The page you are looking for does not exist." url="/404" />
     <motion.section 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
@@ -95,6 +98,7 @@ const NotFound = () => {
         }}
       />
     </motion.section>
+    </>
   );
 };
 

@@ -7,26 +7,13 @@ import { motion, useInView } from 'framer-motion';
 const AnimatedCounter = ({ value, suffix = '', prefix = '', duration = 2, label = '' }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(value);
 
   useEffect(() => {
-    if (!isInView) return;
-    
-    let start = 0;
-    const end = parseInt(value, 10);
-    const stepTime = Math.max(Math.floor((duration * 1000) / end), 40); // Max 25fps updates
-    
-    const timer = setInterval(() => {
-      start += 1;
-      setCount(start);
-      if (start >= end) {
-        clearInterval(timer);
-        setCount(end);
-      }
-    }, stepTime);
-
-    return () => clearInterval(timer);
-  }, [isInView, value, duration]);
+    if (isInView) {
+      setCount(value);
+    }
+  }, [isInView, value]);
 
   return (
     <motion.div

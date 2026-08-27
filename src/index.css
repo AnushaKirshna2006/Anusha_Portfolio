@@ -468,16 +468,22 @@ h1, h2, h3, h4, h5, h6 {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
   }
 
-  /* Contact Page Grid (1fr 2.5fr) */
+  /* Contact Page Grid */
+  div[style*="1fr 2.2fr"],
   div[style*="1fr 2.5fr"] {
     grid-template-columns: 1fr !important;
-    gap: 4rem !important;
-    margin-top: 4rem !important;
+    gap: 2rem !important;
+    margin-top: 2rem !important;
   }
 }
 
 /* --- MOBILE BREAKPOINT (max-width: 768px) --- */
 @media (max-width: 768px) {
+  /* Dynamic Navigation Padding */
+  :root {
+    --nav-padding: 1rem 1.5rem;
+  }
+
   /* Show hamburger, hide desktop nav links */
   .hamburger {
     display: flex;
@@ -488,16 +494,27 @@ h1, h2, h3, h4, h5, h6 {
 
   /* Experience & Education: reduce padding/gaps */
   #experience, #education, #certifications {
-    padding: 4rem var(--pad-x) !important;
+    padding: 3rem var(--pad-x) !important;
+  }
+  
+  /* Timeline node layout fixes */
+  #experience > div > div > div, 
+  #education > div > div > div {
+    gap: 1.5rem !important;
   }
 
   /* Contact footer: stack columns */
   #contact {
     padding: 4rem var(--pad-x) 0 !important;
   }
-  #footer > div {
-    grid-template-columns: 1fr !important;
-    gap: 2rem !important;
+  #footer > div,
+  footer.glass-panel {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    text-align: center;
+  }
+  footer.glass-panel > div {
+    justify-content: center;
   }
 
   /* Services bento grid: 1 column on mobile */
@@ -521,6 +538,28 @@ h1, h2, h3, h4, h5, h6 {
     min-height: 40vh !important;
     padding: 1.5rem !important;
   }
+  
+  /* Home section text and button layout for mobile */
+  .home-text-container {
+    align-items: center !important;
+    text-align: center;
+  }
+  .home-text-container h1 {
+    margin-left: 0 !important;
+  }
+  #home p {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  #home .glass-pill {
+    padding: 0.8rem 1.5rem !important;
+    font-size: 0.75rem !important;
+  }
+  #home div[style*="gap: 1.5rem"], 
+  #home div[style*="gap: 0.5rem"] {
+    justify-content: center !important;
+  }
 
   /* Project Details Page Metadata */
   div[style*="repeat(4, 1fr)"] {
@@ -543,6 +582,7 @@ h1, h2, h3, h4, h5, h6 {
 @media (max-width: 480px) {
   :root {
     --pad-x: 5vw;
+    --nav-padding: 0.8rem 1rem;
   }
 
   #home h1 {

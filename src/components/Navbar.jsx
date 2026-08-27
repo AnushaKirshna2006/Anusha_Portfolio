@@ -93,22 +93,24 @@ const Navbar = ({ onOpenInfo }) => {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
           className="glass-pill"
           style={{ 
-            display: 'flex', alignItems: 'center', padding: '1.2rem 4rem', 
+            display: 'flex', alignItems: 'center', padding: 'var(--nav-padding, 1.2rem 4rem)', 
             gap: 'clamp(2rem, 5vw, 6rem)', pointerEvents: 'auto',
             boxShadow: 'var(--glass-shadow)'
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', paddingRight: 'clamp(2rem, 4vw, 4rem)' }}>
-            <button 
-              onClick={goHome}
-              className="link-hover"
-              style={{ 
-                background: 'none', border: 'none', padding: 0, cursor: 'pointer',
-                fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.5rem', color: 'var(--fg)', letterSpacing: '-0.02em', lineHeight: 1 
-              }}
-            >
-              A.K
-            </button>
+            <Magnetic>
+              <button 
+                onClick={goHome}
+                className="link-hover"
+                style={{ 
+                  background: 'none', border: 'none', padding: 0, cursor: 'pointer',
+                  fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.5rem', color: 'var(--fg)', letterSpacing: '-0.02em', lineHeight: 1 
+                }}
+              >
+                A.K
+              </button>
+            </Magnetic>
           </div>
 
           {/* Desktop Nav Links */}

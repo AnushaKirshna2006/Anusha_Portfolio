@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Magnetic from '../components/Magnetic';
 import Spline from '@splinetool/react-spline';
+import SEO from '../components/SEO';
 
 const projects = [
   {
@@ -10,12 +11,12 @@ const projects = [
     title: 'Virtual Study Buddy',
     type: 'Full-Stack Web App',
     year: '2026',
-    img: '/assets/images/project1.png',
+    img: '/assets/images/Picture1.png',
     overview: 'A full-stack web application connecting university students for peer-to-peer collaborative learning, with a focus on intuitive UX and inclusive design. It seamlessly integrates advanced filtering systems to group users by their study preferences and time zones. The platform also offers interactive whiteboarding and resource-sharing capabilities to simulate an immersive, real-world study environment, drastically enhancing remote educational experiences.',
     challenge: 'Students often struggle to find peers with similar academic goals and learning styles. The challenge was to create a real-time matching system that was both performant and easily accessible.',
     solution: 'Developed a custom matching algorithm based on user preferences and integrated WebSockets for real-time chat. Built with a robust MongoDB backend and secured with JWT authentication.',
     techStack: ['React', 'Node.js', 'Express', 'MongoDB', 'WebSockets', 'JWT Auth'],
-    splineUrl: 'https://prod.spline.design/6Wq1Q7YGyM-iab9i/scene.splinecode'
+    splineUrl: null
   },
   {
     id: 2,
@@ -79,7 +80,14 @@ const ProjectDetails = () => {
   };
 
   return (
-    <motion.main
+    <>
+      <SEO 
+        title={project.title} 
+        description={project.overview} 
+        url={`/project/${id}`} 
+        image={project.img} 
+      />
+      <motion.main
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
@@ -126,7 +134,7 @@ const ProjectDetails = () => {
             {project.splineUrl ? (
               <Spline scene={project.splineUrl} style={{ width: '100%', height: '100%', cursor: 'grab' }} />
             ) : (
-              <img src={project.img} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={project.img} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'contain', background: 'rgba(0,0,0,0.3)', borderRadius: '16px' }} />
             )}
             {project.splineUrl && (
               <div style={{ position: 'absolute', bottom: '1rem', right: '1rem', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--accent)', pointerEvents: 'none', background: 'rgba(0,0,0,0.5)', padding: '0.3rem 0.6rem', borderRadius: '50px', backdropFilter: 'blur(4px)', border: '1px solid rgba(0, 242, 254, 0.2)' }}>
@@ -196,6 +204,7 @@ const ProjectDetails = () => {
 
       </div>
     </motion.main>
+    </>
   );
 };
 
