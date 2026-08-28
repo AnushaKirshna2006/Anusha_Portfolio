@@ -60,7 +60,7 @@ const Footer = () => {
         {/* Content Wrapper to sit above particles */}
         <div style={{ position: 'relative', zIndex: 1 }}>
           {/* Top row: Available badge + Email */}
-        <div style={{
+        <div className="footer-top-row" style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -112,7 +112,7 @@ const Footer = () => {
         </div>
 
         {/* Footer columns */}
-        <div style={{
+        <div className="footer-links-grid" style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
           gap: '2rem',
@@ -244,7 +244,7 @@ const Footer = () => {
             transition={{ duration: 0.4, ease: "easeOut" }}
             style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 'clamp(3rem, 8vw, 7rem)',
+              fontSize: 'clamp(2rem, 12vw, 7rem)',
               fontWeight: 800,
               letterSpacing: '-0.04em',
               lineHeight: 0.8,
@@ -258,7 +258,7 @@ const Footer = () => {
             ANUSHA
           </motion.h2>
 
-          <div style={{
+          <div className="footer-bottom-bar" style={{
             width: '100%',
             display: 'flex',
             justifyContent: 'space-between',

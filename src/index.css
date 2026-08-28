@@ -511,14 +511,29 @@ h1, h2, h3, h4, h5, h6 {
   #contact {
     padding: 4rem var(--pad-x) 0 !important;
   }
-  #footer > div,
-  footer.glass-panel {
-    flex-direction: column !important;
-    gap: 1rem !important;
+  #footer .glass-panel {
+    padding: 2rem 1.5rem !important;
+  }
+  .footer-top-row {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 1.5rem !important;
+  }
+  .footer-links-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1.5rem !important;
     text-align: center;
   }
-  footer.glass-panel > div {
-    justify-content: center;
+  .footer-links-grid > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .footer-bottom-bar {
+    justify-content: center !important;
+    flex-direction: column;
+    text-align: center;
   }
 
   /* Services bento grid: 1 column on mobile */
