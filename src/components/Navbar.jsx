@@ -100,16 +100,17 @@ const Navbar = ({ onOpenInfo }) => {
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', paddingRight: 'clamp(2rem, 4vw, 4rem)' }}>
             <Magnetic>
-              <button 
-                onClick={goHome}
+              <a 
+                href="/"
+                onClick={(e) => { e.preventDefault(); goHome(); }}
                 className="link-hover"
                 style={{ 
-                  background: 'none', border: 'none', padding: 0, cursor: 'pointer',
+                  background: 'none', border: 'none', padding: 0, cursor: 'pointer', textDecoration: 'none',
                   fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: '1.5rem', color: 'var(--fg)', letterSpacing: '-0.02em', lineHeight: 1 
                 }}
               >
                 A.K
-              </button>
+              </a>
             </Magnetic>
           </div>
 
@@ -117,34 +118,38 @@ const Navbar = ({ onOpenInfo }) => {
           <div className="nav-links-desktop" style={{ display: 'flex', alignItems: 'center', gap: '3rem', fontFamily: 'var(--font-mono)', fontSize: '0.9rem', textTransform: 'uppercase', color: 'var(--fg)', fontWeight: 500 }}>
 
             <Magnetic>
-              <button 
-                onClick={() => {
-                  if (window.location.pathname !== '/') navigateWithTransition('/');
-                  setTimeout(() => document.getElementById('works')?.scrollIntoView({ behavior: 'smooth' }), 100);
+              <a 
+                href="/#works"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (window.location.pathname !== '/') navigateWithTransition('/#works');
+                  else setTimeout(() => document.getElementById('works')?.scrollIntoView({ behavior: 'smooth' }), 100);
                 }}
                 className="link-hover" 
-                style={navLinkStyle('works')}
+                style={{ ...navLinkStyle('works'), textDecoration: 'none' }}
               >
                 PROJECTS
-              </button>
+              </a>
             </Magnetic>
             <Magnetic>
-              <button 
-                onClick={() => navigateWithTransition('/contact')} 
+              <a 
+                href="/contact"
+                onClick={(e) => { e.preventDefault(); navigateWithTransition('/contact'); }} 
                 className="link-hover" 
-                style={navLinkStyle('contact')}
+                style={{ ...navLinkStyle('contact'), textDecoration: 'none' }}
               >
                 CONTACT
-              </button>
+              </a>
             </Magnetic>
             <Magnetic>
-              <button 
-                onClick={() => navigateWithTransition('/certifications')} 
+              <a 
+                href="/certifications"
+                onClick={(e) => { e.preventDefault(); navigateWithTransition('/certifications'); }} 
                 className="link-hover" 
-                style={navLinkStyle('')}
+                style={{ ...navLinkStyle(''), textDecoration: 'none' }}
               >
                 CERTIFICATIONS
-              </button>
+              </a>
             </Magnetic>
             <Magnetic>
               <button onClick={onOpenInfo} className="link-hover" style={navLinkStyle('')}>
@@ -177,27 +182,42 @@ const Navbar = ({ onOpenInfo }) => {
             transition={{ duration: 0.3 }}
           >
 
-            <motion.button 
+            <motion.a 
+              href="/#works"
               initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.1 }}
-              onClick={() => navAction(() => {
-                if (window.location.pathname !== '/') navigateWithTransition('/');
-                setTimeout(() => document.getElementById('works')?.scrollIntoView({ behavior: 'smooth' }), 100);
-              })}
+              onClick={(e) => {
+                e.preventDefault();
+                navAction(() => {
+                  if (window.location.pathname !== '/') navigateWithTransition('/#works');
+                  else setTimeout(() => document.getElementById('works')?.scrollIntoView({ behavior: 'smooth' }), 100);
+                });
+              }}
+              style={{ textDecoration: 'none', color: 'inherit' }}
             >
               Projects
-            </motion.button>
-            <motion.button 
+            </motion.a>
+            <motion.a 
+              href="/contact"
               initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.15 }}
-              onClick={() => navAction(() => navigateWithTransition('/contact'))}
+              onClick={(e) => {
+                e.preventDefault();
+                navAction(() => navigateWithTransition('/contact'));
+              }}
+              style={{ textDecoration: 'none', color: 'inherit' }}
             >
               Contact
-            </motion.button>
-            <motion.button 
+            </motion.a>
+            <motion.a 
+              href="/certifications"
               initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.2 }}
-              onClick={() => navAction(() => navigateWithTransition('/certifications'))}
+              onClick={(e) => {
+                e.preventDefault();
+                navAction(() => navigateWithTransition('/certifications'));
+              }}
+              style={{ textDecoration: 'none', color: 'inherit' }}
             >
               Certifications
-            </motion.button>
+            </motion.a>
             <motion.button 
               initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.25 }}
               onClick={() => navAction(() => { onOpenInfo({ preventDefault: () => {} }); })}

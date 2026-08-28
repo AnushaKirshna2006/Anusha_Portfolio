@@ -23,13 +23,22 @@ const App = () => {
   const location = useLocation();
   const { playTick } = useSound();
 
-  // Show the logo preloader every time we navigate back to the home page
+  // Handle scrolling when navigating to the home page
   useEffect(() => {
     if (location.pathname === '/') {
-      setLoading(true);
-      window.scrollTo(0, 0);
+      if (!location.hash) {
+        window.scrollTo(0, 0);
+      } else {
+        setTimeout(() => {
+          const id = location.hash.replace('#', '');
+          const el = document.getElementById(id);
+          if (el) {
+            el.scrollIntoView();
+          }
+        }, 100);
+      }
     }
-  }, [location.pathname]);
+  }, [location.pathname, location.hash]);
 
   useEffect(() => {
     const handleMouseClick = (e) => {

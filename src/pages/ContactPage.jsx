@@ -37,9 +37,9 @@ const ContactPage = () => {
               Contact
             </motion.h1>
             <Magnetic>
-              <button onClick={() => navigateWithTransition('/')} className="glass-pill link-hover" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', cursor: 'pointer', padding: '0.8rem 1.5rem', color: 'var(--fg)' }}>
+              <a href="/#contact" onClick={(e) => { e.preventDefault(); navigateWithTransition('/#contact'); }} className="glass-pill link-hover" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', cursor: 'pointer', padding: '0.8rem 1.5rem', color: 'var(--fg)', textDecoration: 'none' }}>
                 BACK
-              </button>
+              </a>
             </Magnetic>
           </header>
 

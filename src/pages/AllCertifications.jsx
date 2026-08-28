@@ -30,7 +30,7 @@ const AllCertifications = () => {
     }}>
       <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4rem' }}>
         <Magnetic>
-          <Link to="/" className="link-hover" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--fg)', textDecoration: 'none' }}>
+          <Link to="/#certifications" className="link-hover" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--fg)', textDecoration: 'none' }}>
             &larr; BACK TO HOME
           </Link>
         </Magnetic>
