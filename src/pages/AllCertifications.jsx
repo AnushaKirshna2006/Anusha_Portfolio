@@ -32,7 +32,14 @@ const AllCertifications = () => {
     }}>
       <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4rem' }}>
         <Magnetic>
-          <a href="/#certifications" onClick={(e) => { e.preventDefault(); navigateWithTransition('/#certifications'); }} className="link-hover" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--fg)', textDecoration: 'none' }}>
+          <a href="/#certifications" onClick={(e) => { 
+            e.preventDefault(); 
+            if (sessionStorage.getItem('scroll_/')) {
+              navigateWithTransition('/');
+            } else {
+              navigateWithTransition('/#certifications');
+            }
+          }} className="link-hover" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--fg)', textDecoration: 'none' }}>
             &larr; BACK
           </a>
         </Magnetic>

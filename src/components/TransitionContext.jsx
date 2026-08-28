@@ -14,6 +14,9 @@ export const TransitionProvider = ({ children }) => {
   const { playSwoosh } = useSound();
 
   const navigateWithTransition = (path) => {
+    // Save the current scroll position for this path
+    sessionStorage.setItem(`scroll_${window.location.pathname}`, window.scrollY);
+    
     setIsTransitioning(true);
     setPendingPath(path);
     playSwoosh();
