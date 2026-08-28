@@ -31,7 +31,11 @@ const App = () => {
           const id = location.hash.replace('#', '');
           const el = document.getElementById(id);
           if (el) {
-            el.scrollIntoView();
+            if (window.lenis) {
+              window.lenis.scrollTo(el, { immediate: true });
+            } else {
+              el.scrollIntoView();
+            }
           }
         };
         // Attempt to scroll immediately, and also after transitions finish
