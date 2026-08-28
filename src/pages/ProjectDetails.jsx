@@ -111,7 +111,7 @@ const ProjectDetails = () => {
       <nav style={{ marginBottom: '1.5rem', flexShrink: 0 }}>
         <Magnetic>
           <Link to="/#works" className="link-hover" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--fg)', textDecoration: 'none' }}>
-            ← BACK TO WORKS
+            ← BACK
           </Link>
         </Magnetic>
       </nav>
