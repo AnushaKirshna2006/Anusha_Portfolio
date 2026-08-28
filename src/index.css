@@ -461,6 +461,7 @@ h1, h2, h3, h4, h5, h6 {
   .project-row-panel, 
   .featured-card-panel {
     grid-template-columns: 1fr !important;
+    gap: 2rem !important;
   }
   
   /* Services */
@@ -536,10 +537,10 @@ h1, h2, h3, h4, h5, h6 {
 
   /* Featured projects: reduce card size */
   #featured-projects .glass-panel {
-    width: 90vw !important;
+    width: 100% !important;
     height: auto !important;
-    min-height: 40vh !important;
-    padding: 1.5rem !important;
+    min-height: auto !important;
+    padding: 1rem !important;
   }
   
   /* Home section text and button layout for mobile */
@@ -572,7 +573,7 @@ h1, h2, h3, h4, h5, h6 {
 
   /* Works list layout */
   #works .glass-panel {
-    padding: 2rem 1.5rem !important;
+    padding: 1.5rem 1rem !important;
   }
 
   /* Contact Page Form Fields (1fr 1fr) */

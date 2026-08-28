@@ -76,20 +76,20 @@ const ProjectRow = ({ proj, idx, navigateWithTransition }) => {
           
           {/* Info Side */}
           <motion.div style={{ order: idx % 2 === 0 ? 1 : 2, display: 'flex', flexDirection: 'column', gap: '1.5rem', y: textY }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '3rem', fontWeight: 900, color: 'transparent', WebkitTextStroke: '1px rgba(255,255,255,0.1)' }}>{proj.num}</span>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.15em' }}>{proj.type}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 900, color: 'transparent', WebkitTextStroke: '1px rgba(255,255,255,0.1)' }}>{proj.num}</span>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>{proj.type}</span>
             </div>
             
             <h3 
               onClick={() => navigateWithTransition(`/project/${proj.id}`)}
               className="link-hover"
-              style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2.5rem, 4vw, 4rem)', fontWeight: 700, lineHeight: 1.05, letterSpacing: '-0.03em', color: 'var(--fg)', cursor: 'pointer', margin: 0 }}
+              style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.5rem, 5vw, 4rem)', fontWeight: 700, lineHeight: 1.05, letterSpacing: '-0.03em', color: 'var(--fg)', cursor: 'pointer', margin: 0 }}
             >
               <ScrambleText text={proj.title} />
             </h3>
             
-            <p style={{ fontSize: '1.1rem', lineHeight: 1.6, color: 'var(--fg-dim)', margin: 0, paddingRight: idx % 2 === 0 ? '2rem' : '0' }}>
+            <p className="project-desc" style={{ fontSize: 'clamp(0.9rem, 2vw, 1.1rem)', lineHeight: 1.6, color: 'var(--fg-dim)', margin: 0 }}>
               {proj.desc}
             </p>
             

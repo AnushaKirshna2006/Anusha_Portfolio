@@ -254,7 +254,7 @@ const FeaturedCard = ({ proj, idx, navigateWithTransition }) => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
-          padding: 'clamp(2rem, 4vw, 4rem)',
+          padding: 'clamp(1.5rem, 4vw, 4rem)',
           position: 'relative',
           order: isEven ? 2 : 1,
           background: `linear-gradient(135deg, rgba(3,3,5,0.7), ${proj.color})`
@@ -266,7 +266,7 @@ const FeaturedCard = ({ proj, idx, navigateWithTransition }) => {
             right: isEven ? '1.5rem' : 'auto',
             left: isEven ? 'auto' : '1.5rem',
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(5rem, 12vw, 10rem)',
+            fontSize: 'clamp(3rem, 12vw, 10rem)',
             fontWeight: 900,
             color: 'transparent',
             WebkitTextStroke: '1px rgba(255,255,255,0.06)',
@@ -290,7 +290,7 @@ const FeaturedCard = ({ proj, idx, navigateWithTransition }) => {
 
           <h3 style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+            fontSize: 'clamp(1.5rem, 5vw, 3.5rem)',
             fontWeight: 700,
             color: 'var(--fg)',
             letterSpacing: '-0.02em',
