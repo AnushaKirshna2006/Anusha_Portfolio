@@ -52,8 +52,19 @@ const MainLayout = () => {
       }
     };
     
-    // Short delay to ensure DOM and images are laid out
-    setTimeout(handleScroll, 100);
+    // Poll the scroll position as images and videos load in to prevent layout shift resets
+    handleScroll();
+    const t1 = setTimeout(handleScroll, 100);
+    const t2 = setTimeout(handleScroll, 500);
+    const t3 = setTimeout(handleScroll, 1000);
+    const t4 = setTimeout(handleScroll, 1500);
+    
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      clearTimeout(t4);
+    };
   }, []);
 
   return (
