@@ -24,7 +24,7 @@ const ContactPage = () => {
   return (
     <>
     <SEO title="Contact" description="Get in touch for freelance projects and job opportunities." url="/contact" />
-    <section style={{ height: '100vh', width: '100vw', background: 'var(--bg)', color: 'var(--fg)', position: 'relative', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+    <section style={{ minHeight: '100vh', width: '100vw', background: 'var(--bg)', color: 'var(--fg)', position: 'relative', overflowX: 'hidden', display: 'flex', flexDirection: 'column' }}>
       <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
         <ParticleBackground />
       </div>
