@@ -102,14 +102,15 @@ const ProjectRow = ({ proj, idx, navigateWithTransition }) => {
             </div>
             
             <div style={{ display: 'flex', gap: '2rem', marginTop: '1.5rem', alignItems: 'center' }}>
-              <span 
-                onClick={() => navigateWithTransition(`/project/${proj.id}`)}
+              <a 
+                href={`/project/${proj.id}`}
+                onClick={(e) => { e.preventDefault(); navigateWithTransition(`/project/${proj.id}`); }}
                 className="link-hover" 
-                style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--fg)', cursor: 'pointer', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.3rem', display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'color 0.3s' }}
+                style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--fg)', cursor: 'pointer', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.3rem', display: 'flex', alignItems: 'center', gap: '0.5rem', transition: 'color 0.3s', textDecoration: 'none' }}
               >
                 View Project 
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-              </span>
+              </a>
               <a href={proj.github} target="_blank" rel="noopener noreferrer" className="link-hover" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--fg-dim)', borderBottom: '1px solid transparent', paddingBottom: '0.3rem', transition: 'color 0.3s' }}>
                 Source Code
               </a>
@@ -118,10 +119,11 @@ const ProjectRow = ({ proj, idx, navigateWithTransition }) => {
 
           {/* Image Side */}
           <motion.div style={{ order: idx % 2 === 0 ? 2 : 1, y: imgY, width: '100%' }}>
-            <div 
-              onClick={() => navigateWithTransition(`/project/${proj.id}`)}
+            <a 
+              href={`/project/${proj.id}`}
+              onClick={(e) => { e.preventDefault(); navigateWithTransition(`/project/${proj.id}`); }}
               className="project-image-wrap"
-              style={{ width: '100%', aspectRatio: '16/10', position: 'relative', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)', cursor: 'pointer', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.5)', background: '#000' }}
+              style={{ display: 'block', width: '100%', aspectRatio: '16/10', position: 'relative', borderRadius: '16px', border: '1px solid rgba(255,255,255,0.05)', cursor: 'pointer', overflow: 'hidden', boxShadow: '0 30px 60px rgba(0,0,0,0.5)', background: '#000', textDecoration: 'none' }}
             >
               <ProjectAnimation projectId={proj.id} />
               <div className="project-overlay" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%)' }}>
@@ -129,7 +131,7 @@ const ProjectRow = ({ proj, idx, navigateWithTransition }) => {
                   <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--accent)', textTransform: 'uppercase', letterSpacing: '0.15em' }}>Explore Interactive</span>
                 </div>
               </div>
-            </div>
+            </a>
           </motion.div>
           
         </div>

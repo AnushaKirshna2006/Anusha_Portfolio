@@ -411,8 +411,9 @@ const Certifications = () => {
         
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '4rem' }}>
           <Magnetic>
-            <button 
-              onClick={() => navigateWithTransition('/certifications')}
+            <a 
+              href="/certifications"
+              onClick={(e) => { e.preventDefault(); navigateWithTransition('/certifications'); }}
               className="link-hover glass-pill"
               style={{
                 fontFamily: 'var(--font-body)',
@@ -425,11 +426,12 @@ const Certifications = () => {
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.5rem'
+                gap: '0.5rem',
+                textDecoration: 'none'
               }}
             >
               View All {certifications.length} Certifications &rarr;
-            </button>
+            </a>
           </Magnetic>
         </div>
       </motion.div>
