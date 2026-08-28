@@ -266,24 +266,35 @@ export const CertDetailModal = ({ cert, onClose }) => {
           <div style={{
             marginTop: '1.5rem',
             display: 'flex',
-            flexDirection: 'column',
+            alignItems: 'center',
             gap: '0.5rem',
             fontFamily: 'var(--font-mono)',
-            fontSize: '0.8rem',
+            fontSize: '0.85rem',
             color: 'var(--fg-muted)'
           }}>
-            {cert.credentialId && (
-              <div>
-                <span style={{ color: 'var(--fg)', marginRight: '0.5rem' }}>Credential ID:</span>
-                <span style={{ userSelect: 'all', color: 'var(--fg-dim)' }}>{cert.credentialId}</span>
-              </div>
-            )}
-            {cert.credentialUrl && (
-              <div>
-                <a href={cert.credentialUrl} target="_blank" rel="noopener noreferrer" className="link-hover" style={{ color: 'var(--accent)' }}>
-                  Verify Credential ↗
-                </a>
-              </div>
+            <span style={{ color: 'var(--fg)' }}>Credential ID:</span>
+            {cert.credentialUrl ? (
+              <a 
+                href={cert.credentialUrl} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="link-hover" 
+                style={{ color: 'var(--accent)', fontWeight: 500 }}
+              >
+                {cert.credentialId || 'View Certificate'} ↗
+              </a>
+            ) : (
+              <a 
+                href={`#`} 
+                onClick={(e) => {
+                  e.preventDefault();
+                  alert('Please add the credentialUrl to this certificate in the code to make this link work!');
+                }}
+                className="link-hover" 
+                style={{ color: 'var(--accent)', fontWeight: 500 }}
+              >
+                {cert.credentialId} ↗
+              </a>
             )}
           </div>
         )}
