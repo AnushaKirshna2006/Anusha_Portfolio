@@ -112,7 +112,7 @@ const ProjectDetails = () => {
       {/* Top Navigation */}
       <nav style={{ marginBottom: '1.5rem', flexShrink: 0 }}>
         <Magnetic>
-          <a href="#" onClick={(e) => { e.preventDefault(); navigateWithTransition(-1); }} className="link-hover" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--fg)', textDecoration: 'none' }}>
+          <a href="/#works" onClick={(e) => { e.preventDefault(); navigateWithTransition('/#works'); }} className="link-hover" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--fg)', textDecoration: 'none' }}>
             ← BACK
           </a>
         </Magnetic>
