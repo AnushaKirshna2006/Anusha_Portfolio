@@ -23,31 +23,7 @@ const App = () => {
   const location = useLocation();
   const { playTick } = useSound();
 
-  // Handle scrolling when navigating
-  useEffect(() => {
-    const handleScroll = () => {
-      const savedScroll = sessionStorage.getItem(`scroll_${location.pathname}`);
-      
-      if (location.hash) {
-        const id = location.hash.replace('#', '');
-        const el = document.getElementById(id);
-        if (el) {
-          if (window.lenis) window.lenis.scrollTo(el, { immediate: true });
-          else el.scrollIntoView();
-        }
-      } else if (savedScroll) {
-        const y = parseInt(savedScroll, 10);
-        if (window.lenis) window.lenis.scrollTo(y, { immediate: true });
-        else window.scrollTo(0, y);
-      } else {
-        if (window.lenis) window.lenis.scrollTo(0, { immediate: true });
-        else window.scrollTo(0, 0);
-      }
-    };
 
-    handleScroll();
-    setTimeout(handleScroll, 800);
-  }, [location.pathname, location.hash]);
 
   useEffect(() => {
     const handleMouseClick = (e) => {

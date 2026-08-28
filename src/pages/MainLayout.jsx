@@ -41,10 +41,24 @@ const MainLayout = () => {
   };
 
   useEffect(() => {
-    if (window.location.hash) {
-      const el = document.querySelector(window.location.hash);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }
+    const handleScroll = () => {
+      const savedScroll = sessionStorage.getItem('scroll_/');
+      if (window.location.hash) {
+        const id = window.location.hash.replace('#', '');
+        const el = document.getElementById(id);
+        if (el) {
+          if (window.lenis) window.lenis.scrollTo(el, { immediate: true });
+          else el.scrollIntoView();
+        }
+      } else if (savedScroll) {
+        const y = parseInt(savedScroll, 10);
+        if (window.lenis) window.lenis.scrollTo(y, { immediate: true });
+        else window.scrollTo(0, y);
+      }
+    };
+    
+    // Short delay to ensure DOM and images are laid out
+    setTimeout(handleScroll, 100);
   }, []);
 
   return (
