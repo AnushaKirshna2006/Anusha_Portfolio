@@ -12,15 +12,15 @@ import SEO from '../components/SEO';
 
 import Home from './Home';
 import About from '../components/About';
-const Works = lazy(() => import('./Works'));
+import Works from './Works';
 import Info from './Info';
 import Experience from '../components/Experience';
 import Education from '../components/Education';
 import Certifications from '../components/Certifications';
 
 // NEW sections
-const Services = lazy(() => import('../components/Services'));
-const Testimonials = lazy(() => import('../components/Testimonials'));
+import Services from '../components/Services';
+import Testimonials from '../components/Testimonials';
 
 import Footer from '../components/Footer';
 const Avatar3D = lazy(() => import('../components/Avatar3D'));
@@ -65,9 +65,7 @@ const MainLayout = () => {
       <About onOpenInfo={(e) => { e.preventDefault(); triggerInfo(); }} />
       
       {/* 3. What I Do (NEW) */}
-      <Suspense fallback={<div className="shimmer" style={{ minHeight: '50vh' }} />}>
-        <Services />
-      </Suspense>
+      <Services />
 
       {/* 5. ScatterIntro */}
       <ScatterIntro />
@@ -85,16 +83,12 @@ const MainLayout = () => {
       <Experience />
       
       {/* 10. Testimonials (NEW) */}
-      <Suspense fallback={<div className="shimmer" style={{ minHeight: '50vh' }} />}>
-        <Testimonials />
-      </Suspense>
+      <Testimonials />
       
 
       
       {/* 12. Works (detailed list) */}
-      <Suspense fallback={<div className="shimmer" style={{ minHeight: '80vh' }} />}>
-        <Works />
-      </Suspense>
+      <Works />
       
       {/* 13. ScrollDistortion */}
       <ScrollDistortion />
