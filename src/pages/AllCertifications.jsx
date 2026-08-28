@@ -4,8 +4,10 @@ import Magnetic from '../components/Magnetic';
 import { Link } from 'react-router-dom';
 import { certifications, CertCard, CertDetailModal, FilterPills, platforms } from '../components/Certifications';
 import SEO from '../components/SEO';
+import { useTransition } from '../components/TransitionContext';
 
 const AllCertifications = () => {
+  const { navigateWithTransition } = useTransition();
   const [filter, setFilter] = useState('All');
   const [selectedCert, setSelectedCert] = useState(null);
 
@@ -30,9 +32,9 @@ const AllCertifications = () => {
     }}>
       <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4rem' }}>
         <Magnetic>
-          <Link to="/#certifications" className="link-hover" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--fg)', textDecoration: 'none' }}>
+          <a href="#" onClick={(e) => { e.preventDefault(); navigateWithTransition(-1); }} className="link-hover" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--fg)', textDecoration: 'none' }}>
             &larr; BACK
-          </Link>
+          </a>
         </Magnetic>
       </nav>
 

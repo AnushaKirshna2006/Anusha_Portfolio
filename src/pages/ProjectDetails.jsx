@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Magnetic from '../components/Magnetic';
 import Spline from '@splinetool/react-spline';
 import SEO from '../components/SEO';
+import { useTransition } from '../components/TransitionContext';
 
 const projects = [
   {
@@ -45,6 +46,7 @@ const projects = [
 ];
 
 const ProjectDetails = () => {
+  const { navigateWithTransition } = useTransition();
   const { id } = useParams();
   const project = projects.find(p => p.id === parseInt(id)) || projects[0];
 
@@ -110,9 +112,9 @@ const ProjectDetails = () => {
       {/* Top Navigation */}
       <nav style={{ marginBottom: '1.5rem', flexShrink: 0 }}>
         <Magnetic>
-          <Link to="/#works" className="link-hover" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--fg)', textDecoration: 'none' }}>
+          <a href="#" onClick={(e) => { e.preventDefault(); navigateWithTransition(-1); }} className="link-hover" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--fg)', textDecoration: 'none' }}>
             ← BACK
-          </Link>
+          </a>
         </Magnetic>
       </nav>
 

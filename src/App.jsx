@@ -26,16 +26,17 @@ const App = () => {
   // Handle scrolling when navigating to the home page
   useEffect(() => {
     if (location.pathname === '/') {
-      if (!location.hash) {
-        window.scrollTo(0, 0);
-      } else {
-        setTimeout(() => {
+      if (location.hash) {
+        const scrollToHash = () => {
           const id = location.hash.replace('#', '');
           const el = document.getElementById(id);
           if (el) {
             el.scrollIntoView();
           }
-        }, 100);
+        };
+        // Attempt to scroll immediately, and also after transitions finish
+        scrollToHash();
+        setTimeout(scrollToHash, 800);
       }
     }
   }, [location.pathname, location.hash]);
