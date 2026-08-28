@@ -70,7 +70,7 @@ const ProjectRow = ({ proj, idx, navigateWithTransition }) => {
     >
       <TiltCard intensity={5}>
         <div
-          className="glass-panel"
+          className="glass-panel project-row-panel"
           style={{ display: 'grid', gridTemplateColumns: idx % 2 === 0 ? '1fr 1.2fr' : '1.2fr 1fr', gap: '4rem', alignItems: 'center', padding: '3rem 4rem' }}
         >
           

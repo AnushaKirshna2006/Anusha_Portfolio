@@ -153,7 +153,7 @@ const FeaturedCard = ({ proj, idx, navigateWithTransition }) => {
       <TiltCard intensity={8}>
         <div
           onClick={() => navigateWithTransition(`/project/${proj.id}`)}
-          className="glass-panel"
+          className="glass-panel featured-card-panel"
           data-cursor="view"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}

@@ -30,7 +30,7 @@ const ScrollRevealText = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '10rem var(--pad-x)',
+        padding: 'clamp(5rem, 10vh, 10rem) var(--pad-x)',
         position: 'relative'
       }}
     >
@@ -60,9 +60,9 @@ const ScrollRevealText = () => {
       <p 
         style={{
           fontFamily: 'var(--font-display)',
-          fontSize: 'clamp(1.5rem, 3.2vw, 3rem)',
+          fontSize: 'clamp(1.1rem, 3.5vw, 3rem)',
           fontWeight: 500,
-          lineHeight: 1.5,
+          lineHeight: 1.35,
           letterSpacing: '-0.02em',
           maxWidth: '1000px',
           textAlign: 'left',

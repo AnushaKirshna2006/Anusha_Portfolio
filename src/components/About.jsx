@@ -172,6 +172,7 @@ const About = ({ onOpenInfo }) => {
             transition={{ duration: 1.2, delay: 0.35 }}
             style={{
               display: 'flex',
+              flexWrap: 'wrap',
               gap: 'clamp(2rem, 4vw, 4rem)',
               alignItems: 'flex-start'
             }}

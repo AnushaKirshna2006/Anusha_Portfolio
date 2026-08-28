@@ -68,7 +68,7 @@ const NavDots = ({ isLoading, location }) => {
   if (!isHomePage) return null;
 
   return (
-    <div style={{
+    <div className="nav-dots-wrapper" style={{
       position: 'fixed',
       right: '2rem',
       top: '50%',

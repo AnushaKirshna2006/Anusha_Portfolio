@@ -458,8 +458,8 @@ h1, h2, h3, h4, h5, h6 {
   }
 
   /* Works/Featured Projects */
-  .glass-panel[style*="grid-template-columns"], 
-  #featured-projects .glass-panel {
+  .project-row-panel, 
+  .featured-card-panel {
     grid-template-columns: 1fr !important;
   }
   
@@ -489,6 +489,9 @@ h1, h2, h3, h4, h5, h6 {
     display: flex;
   }
   .nav-links-desktop {
+    display: none !important;
+  }
+  .nav-dots-wrapper {
     display: none !important;
   }
 
