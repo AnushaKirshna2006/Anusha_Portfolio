@@ -34,11 +34,7 @@ const AllCertifications = () => {
         <Magnetic>
           <a href="/#certifications" onClick={(e) => { 
             e.preventDefault(); 
-            if (sessionStorage.getItem('scroll_/')) {
-              navigateWithTransition('/');
-            } else {
-              navigateWithTransition('/#certifications');
-            }
+            navigateWithTransition('/#certifications');
           }} className="link-hover" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--fg)', textDecoration: 'none' }}>
             &larr; BACK
           </a>

@@ -114,11 +114,7 @@ const ProjectDetails = () => {
         <Magnetic>
           <a href="/#works" onClick={(e) => { 
             e.preventDefault(); 
-            if (sessionStorage.getItem('scroll_/')) {
-              navigateWithTransition('/');
-            } else {
-              navigateWithTransition('/#works');
-            }
+            navigateWithTransition('/#works');
           }} className="link-hover" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--fg)', textDecoration: 'none' }}>
             ← BACK
           </a>
