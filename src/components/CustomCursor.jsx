@@ -6,6 +6,7 @@ const CustomCursor = () => {
   const { cursorVariant, cursorText, cursorColor } = useCursor();
   const trailCount = 5;
   const trailRefs = useRef([]);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   // Smooth springs for the main cursor
   const springConfig = { damping: 25, stiffness: 200, mass: 0.5 };
@@ -19,6 +20,12 @@ const CustomCursor = () => {
   }));
 
   useEffect(() => {
+    // Detect touch device to disable custom cursor on mobile
+    if ('ontouchstart' in window || navigator.maxTouchPoints > 0 || window.matchMedia('(pointer: coarse)').matches) {
+      setIsTouchDevice(true);
+      return;
+    }
+
     const handleMouseMove = (e) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -61,6 +68,8 @@ const CustomCursor = () => {
       mixBlendMode: 'normal'
     }
   };
+
+  if (isTouchDevice) return null;
 
   return (
     <>
