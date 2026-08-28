@@ -258,6 +258,33 @@ export const CertDetailModal = ({ cert, onClose }) => {
           {cert.description}
         </p>
 
+        {/* Credential Info */}
+        {(cert.credentialId || cert.credentialUrl) && (
+          <div style={{
+            marginTop: '1.5rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.5rem',
+            fontFamily: 'var(--font-mono)',
+            fontSize: '0.8rem',
+            color: 'var(--fg-muted)'
+          }}>
+            {cert.credentialId && (
+              <div>
+                <span style={{ color: 'var(--fg)', marginRight: '0.5rem' }}>Credential ID:</span>
+                <span style={{ userSelect: 'all', color: 'var(--fg-dim)' }}>{cert.credentialId}</span>
+              </div>
+            )}
+            {cert.credentialUrl && (
+              <div>
+                <a href={cert.credentialUrl} target="_blank" rel="noopener noreferrer" className="link-hover" style={{ color: 'var(--accent)' }}>
+                  Verify Credential ↗
+                </a>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Platform tag */}
         <div style={{
           marginTop: '2rem',
