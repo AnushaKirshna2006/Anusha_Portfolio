@@ -1,4 +1,4 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useLayoutEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Navbar from '../components/Navbar';
 import AmbientAura from '../components/AmbientAura';
@@ -29,6 +29,7 @@ const MainLayout = () => {
   const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [pendingAction, setPendingAction] = useState(null);
+  const [isReady, setIsReady] = useState(!window.location.hash);
 
   const triggerInfo = () => {
     setIsTransitioning(true);
@@ -37,18 +38,48 @@ const MainLayout = () => {
   
   const closeInfo = () => {
     setIsTransitioning(true);
-    setPendingAction(() => () => setIsInfoOpen(false));
+    setPendingAction(() => () => {
+      setIsInfoOpen(false);
+      
+      // Scroll to top of home section
+      if (window.lenis) {
+        window.lenis.scrollTo(0, { immediate: true });
+      } else {
+        window.scrollTo(0, 0);
+      }
+      
+      // Clear hash if any
+      if (window.location.hash) {
+        window.history.replaceState(null, document.title, window.location.pathname + window.location.search);
+      }
+    });
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const handleScroll = () => {
       if (window.location.hash) {
         const id = window.location.hash.replace('#', '');
         const el = document.getElementById(id);
         if (el) {
-          if (window.lenis) window.lenis.scrollTo(el, { immediate: true });
-          else el.scrollIntoView();
+          if (window.lenis) {
+            window.lenis.resize(); // Force recalculation of bounds
+            window.lenis.scrollTo(el, { immediate: true });
+          } else {
+            el.scrollIntoView({ behavior: 'instant' });
+          }
         }
+      } else {
+        if (window.lenis) {
+          window.lenis.resize();
+          window.lenis.scrollTo(0, { immediate: true });
+        } else {
+          window.scrollTo(0, 0);
+        }
+      }
+      
+      // Delay revealing the page slightly to ensure scroll has jumped
+      if (!isReady) {
+        setTimeout(() => setIsReady(true), 150);
       }
     };
     
@@ -57,13 +88,11 @@ const MainLayout = () => {
     const t1 = setTimeout(handleScroll, 100);
     const t2 = setTimeout(handleScroll, 500);
     const t3 = setTimeout(handleScroll, 1000);
-    const t4 = setTimeout(handleScroll, 1500);
     
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
-      clearTimeout(t4);
     };
   }, []);
 
@@ -72,7 +101,7 @@ const MainLayout = () => {
     <SEO title="Home" url="/" />
     <motion.main
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      animate={{ opacity: isReady ? 1 : 0 }}
       transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
     >
       <AmbientAura />

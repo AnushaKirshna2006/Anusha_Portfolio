@@ -26,6 +26,14 @@ const App = () => {
 
 
   useEffect(() => {
+    // Force scroll to top on initial load
+    window.scrollTo(0, 0);
+    
+    // Clear hash on initial load so we always start at the Hero section
+    if (window.location.hash) {
+      window.history.replaceState(null, document.title, window.location.pathname + window.location.search);
+    }
+
     const handleMouseClick = (e) => {
       // Play sound if an interactive element is clicked
       if (e.target.closest('a, button, .link-hover, .glass-pill, [data-cursor="view"], .chr-hover')) {

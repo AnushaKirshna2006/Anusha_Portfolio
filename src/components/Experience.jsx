@@ -5,17 +5,25 @@ import TextReveal from './TextReveal';
 const experiences = [
   {
     id: 1,
+    year: 'Jun 2026 - Jul 2026',
+    title: 'Full Stack Web Development',
+    company: 'Future Interns — Remote',
+    desc: 'Architected and developed comprehensive full stack web applications. Designed responsive frontend interfaces while building and integrating robust backend services and APIs.',
+  },
+  {
+    id: 2,
+    year: 'Apr 2026 - Mar 2026',
+    title: 'Data Entry Intern',
+    company: 'RAK Dental Care & Implant Centre — Ras Al-Khaimah, UAE',
+    desc: 'Extracted, cleaned, and structured large clinical datasets using SQL. Architected interactive data visualization dashboards. Integrated external RESTful APIs for data analysis.',
+  },
+  {
+    id: 3,
     year: '2024 - 2026',
     title: 'Brand Ambassador',
     company: 'Premium FMCG Brands — Almarai • London Dairy • Kiri',
     desc: 'Spearheaded cross-functional customer engagement campaigns across high-footfall retail environments. Applied user-centric problem-solving and consultative selling techniques.',
-  },
-  {
-    id: 2,
-    year: '2024 - 2025',
-    title: 'Data Entry Intern',
-    company: 'RAK Dental Care & Implant Centre — Ras Al-Khaimah, UAE',
-    desc: 'Extracted, cleaned, and structured large clinical datasets using SQL. Architected interactive data visualization dashboards. Integrated external RESTful APIs for data analysis.',
+
   }
 ];
 
@@ -25,19 +33,19 @@ const ExperienceNode = ({ exp, index }) => {
     target: ref,
     offset: ["start 90%", "center 50%"]
   });
-  
+
   const opacity = useTransform(scrollYProgress, [0, 1], [0.3, 1]);
   const scale = useTransform(scrollYProgress, [0, 1], [0.8, 1]);
   const y = useTransform(scrollYProgress, [0, 1], [50, 0]);
 
   return (
-    <motion.div 
+    <motion.div
       ref={ref}
       style={{ opacity, scale, y, position: 'relative', display: 'flex', gap: '3rem', marginBottom: '4rem' }}
     >
       {/* Timeline Node / Line Connector */}
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <div style={{ 
+        <div style={{
           width: '20px', height: '20px', borderRadius: '50%', background: 'var(--accent)',
           boxShadow: '0 0 20px var(--accent)', border: '2px solid var(--bg)', zIndex: 2
         }} />

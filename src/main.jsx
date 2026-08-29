@@ -8,6 +8,10 @@ import { SoundProvider } from './components/SoundContext.jsx';
 import { ThemeProvider } from './components/ThemeContext.jsx';
 import './index.css';
 
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <HelmetProvider>

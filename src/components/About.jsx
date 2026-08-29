@@ -166,16 +166,11 @@ const About = ({ onOpenInfo }) => {
 
           {/* Stats Row */}
           <motion.div
+            className="about-stats-row"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.2, delay: 0.35 }}
-            style={{
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: 'clamp(2rem, 4vw, 4rem)',
-              alignItems: 'flex-start'
-            }}
           >
             {[
               { value: 10, suffix: '+', label: 'Projects\nDone' },
@@ -184,7 +179,7 @@ const About = ({ onOpenInfo }) => {
               { value: 15, suffix: '+', label: 'Technologies\nMastered' }
             ].map((stat) => (
               <div key={stat.label} style={{ display: 'flex', flexDirection: 'column' }}>
-                <div style={{ fontFamily: 'var(--font-display)', fontSize: '2.5rem', fontWeight: 700, color: 'var(--fg)', lineHeight: 1 }}>
+                <div style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(2rem, 4vw, 2.5rem)', fontWeight: 700, color: 'var(--fg)', lineHeight: 1 }}>
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                 </div>
                 <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--fg-dim)', marginTop: '0.5rem', whiteSpace: 'pre-line', lineHeight: 1.4 }}>
@@ -273,9 +268,26 @@ const About = ({ onOpenInfo }) => {
       {/* Responsive adjustments */}
       <style dangerouslySetInnerHTML={{
         __html: `
+        .about-stats-row {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: clamp(1rem, 2vw, 2.5rem);
+          width: 100%;
+        }
         @media (max-width: 1024px) {
           #about > div { grid-template-columns: 1fr !important; }
           #about .link-hover { padding: 1rem 1.5rem !important; }
+        }
+        @media (max-width: 768px) {
+          .about-stats-row {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+          }
+        }
+        @media (max-width: 480px) {
+          .about-stats-row {
+            gap: 1.5rem;
+          }
         }
       `}} />
     </section>

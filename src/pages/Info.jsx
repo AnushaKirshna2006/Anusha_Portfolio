@@ -142,8 +142,21 @@ const Info = ({ onClose }) => {
           <div style={{ fontWeight: 600, fontSize: '1.1rem' }}>Let's Talk</div>
         </motion.a>
 
-        {/* Experience 1 Card */}
+        {/* Experience 1 Card (Newest) */}
         <motion.div variants={itemVariants} className="bento-item bento-exp1" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: '#777', letterSpacing: '0.1em' }}>EXPERIENCE</div>
+            <div style={{ background: '#222', padding: '0.3rem 0.8rem', borderRadius: '50px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#aaa' }}>Jun 26 — Jul 26</div>
+          </div>
+          <h4 style={{ fontFamily: 'var(--font-sans)', fontSize: '1.3rem', fontWeight: 600, margin: '0 0 0.3rem 0' }}>Full Stack Web Dev</h4>
+          <div style={{ fontSize: '0.9rem', color: 'var(--accent)', marginBottom: '1rem' }}>Future Interns</div>
+          <p style={{ fontSize: '0.95rem', color: '#999', lineHeight: 1.5, margin: 0 }}>
+            Architected and developed comprehensive full stack web applications. Designed responsive frontend interfaces while integrating robust backend services.
+          </p>
+        </motion.div>
+
+        {/* Experience 2 Card */}
+        <motion.div variants={itemVariants} className="bento-item bento-exp2" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: '#777', letterSpacing: '0.1em' }}>EXPERIENCE</div>
             <div style={{ background: '#222', padding: '0.3rem 0.8rem', borderRadius: '50px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#aaa' }}>2024 — 2026</div>
@@ -155,8 +168,8 @@ const Info = ({ onClose }) => {
           </p>
         </motion.div>
 
-        {/* Experience 2 Card */}
-        <motion.div variants={itemVariants} className="bento-item bento-exp2" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+        {/* Experience 3 Card */}
+        <motion.div variants={itemVariants} className="bento-item bento-exp3" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
             <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: '#777', letterSpacing: '0.1em' }}>EXPERIENCE</div>
             <div style={{ background: '#222', padding: '0.3rem 0.8rem', borderRadius: '50px', fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: '#aaa' }}>2024 — 2025</div>
@@ -215,6 +228,10 @@ const Info = ({ onClose }) => {
           grid-column: span 2;
           grid-row: span 1;
         }
+        .bento-exp3 {
+          grid-column: span 4;
+          grid-row: span 1;
+        }
         .bento-skills {
           grid-column: span 4;
           grid-row: span 2;
@@ -232,6 +249,7 @@ const Info = ({ onClose }) => {
           .bento-exp1 { grid-column: span 2; grid-row: span 1; }
           .bento-edu { grid-column: span 2; grid-row: span 1; }
           .bento-exp2 { grid-column: span 2; grid-row: span 1; }
+          .bento-exp3 { grid-column: span 2; grid-row: span 1; }
           .bento-skills { grid-column: span 2; grid-row: span 2; }
         }
 
@@ -239,7 +257,7 @@ const Info = ({ onClose }) => {
           .bento-container {
             grid-template-columns: 1fr;
           }
-          .bento-profile, .bento-intro, .bento-status, .bento-email, .bento-exp1, .bento-edu, .bento-exp2, .bento-skills {
+          .bento-profile, .bento-intro, .bento-status, .bento-email, .bento-exp1, .bento-edu, .bento-exp2, .bento-exp3, .bento-skills {
             grid-column: span 1;
             grid-row: auto;
           }
