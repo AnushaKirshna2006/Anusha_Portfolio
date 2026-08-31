@@ -100,7 +100,7 @@ const Footer = () => {
           </motion.div>
 
           <Magnetic>
-            <a href="mailto:anushakirshna@gmail.com" className="link-hover" style={{
+            <a href="mailto:anushakirshna@gmail.com" target="_blank" rel="noopener noreferrer" className="link-hover" style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '0.85rem',
               fontWeight: 500,

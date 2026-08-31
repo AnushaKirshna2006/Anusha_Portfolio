@@ -134,7 +134,7 @@ const Info = ({ onClose }) => {
         </motion.div>
 
         {/* Email Card */}
-        <motion.a href="mailto:anushakirshna@gmail.com" variants={itemVariants} className="bento-item bento-email" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'var(--accent)', color: '#000', textDecoration: 'none', transition: 'transform 0.3s ease' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>
+        <motion.a href="mailto:anushakirshna@gmail.com" target="_blank" rel="noopener noreferrer" variants={itemVariants} className="bento-item bento-email" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', background: 'var(--accent)', color: '#000', textDecoration: 'none', transition: 'transform 0.3s ease' }} onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.02)'} onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}>
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '1rem' }}>
             <rect x="2" y="4" width="20" height="16" rx="2"></rect>
             <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>

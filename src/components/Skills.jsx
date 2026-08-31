@@ -90,7 +90,7 @@ const Skills = () => {
             transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             style={{ borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '1.5rem', width: '100%' }}
           >
-            <a href="mailto:anushakirshna@gmail.com" className="link-hover" style={{ 
+            <a href="mailto:anushakirshna@gmail.com" target="_blank" rel="noopener noreferrer" className="link-hover" style={{ 
               fontSize: '0.8rem', 
               fontWeight: 700, 
               fontFamily: 'var(--font-body)',
