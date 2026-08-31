@@ -235,7 +235,7 @@ const AccordionItem = ({ service, index, isActive, onClick, isMobile }) => {
               </div>
             </div>
 
-            <div style={{ flex: 1, overflowY: 'auto', paddingRight: '1rem', className: 'hide-scrollbar' }}>
+            <div className="hide-scrollbar" style={{ flex: 1, overflowY: 'auto', paddingRight: '1rem' }}>
               <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.15rem', lineHeight: 1.6, color: 'var(--fg)', marginBottom: '1.5rem', fontWeight: 500 }}>
                 {service.desc}
               </p>
