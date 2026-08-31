@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import AnimatedCounter from './AnimatedCounter';
+import { useTransition } from './TransitionContext';
 
 const FloatingTag = ({ text, delay = 0, top, left, right, bottom, icon }) => {
   return (
@@ -43,6 +44,7 @@ const FloatingTag = ({ text, delay = 0, top, left, right, bottom, icon }) => {
 
 const About = ({ onOpenInfo }) => {
   const containerRef = useRef(null);
+  const { navigateWithTransition } = useTransition();
 
   return (
     <section id="about" ref={containerRef} style={{
@@ -128,7 +130,8 @@ const About = ({ onOpenInfo }) => {
             style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '5rem' }}
           >
             <a
-              href="mailto:anushakirshna@gmail.com"
+              href="/contact"
+              onClick={(e) => { e.preventDefault(); navigateWithTransition('/contact'); }}
               className="link-hover"
               style={{
                 fontFamily: 'var(--font-mono)',
