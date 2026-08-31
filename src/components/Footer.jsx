@@ -99,16 +99,15 @@ const Footer = () => {
             </span>
           </motion.div>
 
-          <Magnetic>
-            <a href="mailto:anushakirshna@gmail.com" target="_blank" rel="noopener noreferrer" className="link-hover" style={{
+          <motion.a href="mailto:anushakirshna@gmail.com" target="_blank" rel="noopener noreferrer" className="link-hover" whileHover={{ scale: 1.05, color: 'var(--accent)' }} transition={{ duration: 0.2 }} style={{
               fontFamily: 'var(--font-mono)',
               fontSize: '0.85rem',
               fontWeight: 500,
-              color: 'var(--fg)'
+              color: 'var(--fg)',
+              display: 'inline-block'
             }}>
               anushakirshna@gmail.com
-            </a>
-          </Magnetic>
+            </motion.a>
         </div>
 
         {/* Footer columns */}
@@ -130,20 +129,22 @@ const Footer = () => {
             </span>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
               {navLinks.map(link => (
-                <Magnetic key={link.label}>
-                  <button
-                    onClick={link.action}
-                    className="link-hover"
-                    style={{
-                      background: 'none', border: 'none', cursor: 'pointer',
-                      fontFamily: 'var(--font-body)', fontSize: '0.9rem',
-                      color: 'var(--fg-dim)', textAlign: 'left',
-                      padding: 0, fontWeight: 400
-                    }}
-                  >
-                    <ScrambleText text={link.label} />
-                  </button>
-                </Magnetic>
+                <motion.button
+                  key={link.label}
+                  onClick={link.action}
+                  className="link-hover"
+                  whileHover={{ x: 5, color: 'var(--fg)' }}
+                  transition={{ duration: 0.2 }}
+                  style={{
+                    background: 'none', border: 'none', cursor: 'pointer',
+                    fontFamily: 'var(--font-body)', fontSize: '0.9rem',
+                    color: 'var(--fg-dim)', textAlign: 'left',
+                    padding: 0, fontWeight: 400,
+                    width: 'fit-content'
+                  }}
+                >
+                  <ScrambleText text={link.label} />
+                </motion.button>
               ))}
             </div>
           </div>
@@ -160,20 +161,22 @@ const Footer = () => {
             </span>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
               {pageLinks.map(link => (
-                <Magnetic key={link.label}>
-                  <button
-                    onClick={link.action}
-                    className="link-hover"
-                    style={{
-                      background: 'none', border: 'none', cursor: 'pointer',
-                      fontFamily: 'var(--font-body)', fontSize: '0.9rem',
-                      color: 'var(--fg-dim)', textAlign: 'left',
-                      padding: 0, fontWeight: 400
-                    }}
-                  >
-                    <ScrambleText text={link.label} />
-                  </button>
-                </Magnetic>
+                <motion.button
+                  key={link.label}
+                  onClick={link.action}
+                  className="link-hover"
+                  whileHover={{ x: 5, color: 'var(--fg)' }}
+                  transition={{ duration: 0.2 }}
+                  style={{
+                    background: 'none', border: 'none', cursor: 'pointer',
+                    fontFamily: 'var(--font-body)', fontSize: '0.9rem',
+                    color: 'var(--fg-dim)', textAlign: 'left',
+                    padding: 0, fontWeight: 400,
+                    width: 'fit-content'
+                  }}
+                >
+                  <ScrambleText text={link.label} />
+                </motion.button>
               ))}
             </div>
           </div>
@@ -190,17 +193,18 @@ const Footer = () => {
             </span>
             <div style={{ display: 'flex', gap: '0.75rem' }}>
               {socials.map(s => (
-                <Magnetic key={s.label}>
-                  <a
-                    href={s.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-icon"
-                    aria-label={s.label}
-                  >
-                    {s.icon}
-                  </a>
-                </Magnetic>
+                <motion.a
+                  key={s.label}
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-icon"
+                  aria-label={s.label}
+                  whileHover={{ scale: 1.15, y: -3, color: 'var(--accent)', borderColor: 'var(--accent)' }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 10 }}
+                >
+                  {s.icon}
+                </motion.a>
               ))}
             </div>
           </div>
