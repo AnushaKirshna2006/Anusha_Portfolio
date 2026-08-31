@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTransition } from '../components/TransitionContext';
 import Magnetic from '../components/Magnetic';
 import ParticleBackground from '../components/ParticleBackground';
-import emailjs from '@emailjs/browser';
+
 import SEO from '../components/SEO';
 
 const ContactPage = () => {
@@ -18,7 +18,32 @@ const ContactPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormState('submitting');
-    setTimeout(() => setFormState('success'), 1500);
+
+    const formData = new FormData(form.current);
+    const data = Object.fromEntries(formData.entries());
+    
+    fetch("https://formsubmit.co/ajax/anushakirshna@gmail.com", {
+        method: "POST",
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.success) {
+            setFormState('success');
+            if (form.current) form.current.reset();
+        } else {
+            throw new Error(data.message || "Failed to send");
+        }
+    })
+    .catch(error => {
+        console.error("Form Error:", error);
+        alert("Failed to send the message. Please try again or use direct mail.");
+        setFormState('idle');
+    });
   };
 
   return (
