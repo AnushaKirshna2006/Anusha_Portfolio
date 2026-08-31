@@ -179,7 +179,8 @@ export const CertDetailModal = ({ cert, onClose }) => {
             background: 'none', border: 'none',
             color: 'var(--fg-dim)', cursor: 'pointer',
             fontSize: '1.5rem', lineHeight: 1,
-            transition: 'color 0.2s ease'
+            transition: 'color 0.2s ease',
+            zIndex: 10
           }}
           onMouseEnter={e => e.currentTarget.style.color = 'var(--fg)'}
           onMouseLeave={e => e.currentTarget.style.color = 'var(--fg-dim)'}
@@ -193,7 +194,9 @@ export const CertDetailModal = ({ cert, onClose }) => {
           width: '200px', height: '200px',
           background: colors.bg,
           filter: 'blur(80px)', borderRadius: '50%',
-          opacity: 0.8
+          opacity: 0.8,
+          pointerEvents: 'none',
+          zIndex: 0
         }} />
 
         {/* Issuer badge */}
