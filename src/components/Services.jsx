@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const services = [
@@ -121,121 +121,169 @@ const services = [
   }
 ];
 
-/* ═══ 3D Flip Card ═══ */
-const ServiceCard = ({ service, index }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
-
+/* ═══ Horizontal Accordion Card ═══ */
+const AccordionItem = ({ service, index, isActive, onClick, isMobile }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: "-40px" }}
-      transition={{ duration: 0.6, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-      onClick={() => setIsFlipped(!isFlipped)}
+      layout
+      onClick={onClick}
       style={{
-        perspective: '1200px',
+        position: 'relative',
         cursor: 'pointer',
-        height: '380px',
-        width: '100%',
-        willChange: 'transform, opacity'
+        borderRadius: '24px',
+        overflow: 'hidden',
+        background: isActive ? `linear-gradient(145deg, var(--glass-bg), ${service.color})` : 'rgba(255, 255, 255, 0.02)',
+        border: isActive ? `1px solid ${service.accentHex}44` : '1px solid rgba(255,255,255,0.05)',
+        display: 'flex',
+        flexDirection: isMobile ? 'column' : 'row',
+        alignItems: 'center',
+        padding: isActive ? (isMobile ? '2rem' : '3rem') : (isMobile ? '1rem 1.5rem' : '2rem 0'),
+        willChange: 'width, flex, height',
+      }}
+      initial={false}
+      animate={{
+        flex: isActive ? (isMobile ? '1 1 auto' : 6) : 1,
+        width: isMobile ? '100%' : (isActive ? 'auto' : '100px'),
+        height: isMobile ? (isActive ? 'auto' : '80px') : '600px',
+      }}
+      transition={{ type: 'spring', stiffness: 200, damping: 25, mass: 0.8 }}
+      whileHover={{
+        background: isActive ? `linear-gradient(145deg, var(--glass-bg), ${service.color})` : 'rgba(255, 255, 255, 0.05)',
       }}
     >
-      <motion.div
-        animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ duration: 1.2, type: 'spring', stiffness: 100, damping: 20 }}
-        style={{
-          position: 'relative',
-          width: '100%',
-          height: '100%',
-          transformStyle: 'preserve-3d'
-        }}
-      >
-        {/* ── FRONT FACE ── */}
-        <div className="glass-panel service-card" style={{
-          position: 'absolute',
-          inset: 0,
-          backfaceVisibility: 'hidden',
-          padding: 'clamp(1.5rem, 2.5vw, 2.5rem)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          borderTop: `2px solid ${service.color}`
-        }}>
-          <div>
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
-              <div style={{
-                width: '60px', height: '60px', borderRadius: '16px',
-                background: service.color, border: `1px solid ${service.accentHex}33`,
-                display: 'flex', alignItems: 'center', justifyContent: 'center', color: service.accentHex
-              }}>
-                {service.icon}
-              </div>
-              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--fg-muted)', letterSpacing: '0.1em' }}>
-                0{index + 1}
-              </span>
+      <AnimatePresence mode="wait">
+        {/* INACTIVE STATE */}
+        {!isActive && (
+          <motion.div
+            key="inactive"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.1 } }}
+            style={{
+              display: 'flex',
+              flexDirection: isMobile ? 'row' : 'column',
+              alignItems: 'center',
+              justifyContent: isMobile ? 'space-between' : 'space-between',
+              width: '100%',
+              height: '100%',
+              padding: isMobile ? 0 : '1rem 0'
+            }}
+          >
+            <div style={{
+              width: '50px', height: '50px', borderRadius: '12px',
+              background: service.color, border: `1px solid ${service.accentHex}33`,
+              display: 'flex', alignItems: 'center', justifyContent: 'center', color: service.accentHex,
+              flexShrink: 0
+            }}>
+              {service.icon}
             </div>
-            <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', fontWeight: 600, color: 'var(--fg)', marginBottom: '1rem' }}>
+            
+            <h3 style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: isMobile ? '1.2rem' : '1.5rem',
+              fontWeight: 600,
+              color: 'var(--fg-dim)',
+              whiteSpace: 'nowrap',
+              writingMode: isMobile ? 'horizontal-tb' : 'vertical-rl',
+              transform: isMobile ? 'none' : 'rotate(180deg)',
+              margin: isMobile ? '0 1rem' : 'auto 0',
+              flex: isMobile ? 1 : 'none',
+              textAlign: isMobile ? 'left' : 'center'
+            }}>
               {service.title}
             </h3>
-            <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', lineHeight: 1.6, color: 'var(--fg-dim)' }}>
-              {service.desc}
-            </p>
-          </div>
-          
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: service.accentHex, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-            <span>Click to flip</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path><polyline points="21 3 21 8 16 8"></polyline></svg>
-          </div>
-        </div>
-
-        {/* ── BACK FACE ── */}
-        <div className="glass-panel" style={{
-          position: 'absolute',
-          inset: 0,
-          backfaceVisibility: 'hidden',
-          transform: 'rotateY(180deg)',
-          padding: 'clamp(1.5rem, 2.5vw, 2.5rem)',
-          background: `linear-gradient(145deg, var(--glass-bg), ${service.color})`,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center'
-        }}>
-          <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.2rem', fontWeight: 600, color: 'var(--fg)', marginBottom: '1rem' }}>
-            {service.title}
-          </h3>
-          <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', lineHeight: 1.6, color: 'var(--fg-dim)', marginBottom: '1.5rem' }}>
-            {service.details}
-          </p>
-
-          <div style={{ marginBottom: '1.5rem' }}>
-            <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--fg-muted)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '0.5rem' }}>Tools</div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
-              {service.tools.map(tool => (
-                <span key={tool} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', padding: '0.3rem 0.6rem', borderRadius: '4px', background: 'rgba(0,0,0,0.2)', color: 'var(--fg-dim)' }}>
-                  {tool}
-                </span>
-              ))}
+            
+            <div style={{
+              fontFamily: 'var(--font-mono)', fontSize: '0.8rem', color: 'var(--fg-muted)', letterSpacing: '0.1em'
+            }}>
+              0{index + 1}
             </div>
-          </div>
+          </motion.div>
+        )}
 
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
-            <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.5rem', fontWeight: 700, color: service.accentHex }}>{service.highlight}</span>
-            <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: 'var(--fg-muted)', textTransform: 'uppercase' }}>{service.highlightLabel}</span>
-          </div>
-        </div>
-      </motion.div>
+        {/* ACTIVE STATE */}
+        {isActive && (
+          <motion.div
+            key="active"
+            initial={{ opacity: 0, filter: 'blur(10px)', x: isMobile ? 0 : -20, y: isMobile ? -20 : 0 }}
+            animate={{ opacity: 1, filter: 'blur(0px)', x: 0, y: 0 }}
+            exit={{ opacity: 0, filter: 'blur(10px)', transition: { duration: 0.1 } }}
+            transition={{ duration: 0.4, delay: 0.15 }}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              height: '100%',
+              width: '100%',
+              minWidth: isMobile ? 'auto' : '350px'
+            }}
+          >
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '2rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                <div style={{
+                  width: '70px', height: '70px', borderRadius: '16px',
+                  background: 'rgba(0,0,0,0.3)', border: `1px solid ${service.accentHex}44`,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', color: service.accentHex,
+                  flexShrink: 0
+                }}>
+                  {service.icon}
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9rem', color: 'var(--fg-muted)', letterSpacing: '0.1em', marginBottom: '0.3rem' }}>0{index + 1}</span>
+                  <h3 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 700, color: 'var(--fg)', margin: 0, lineHeight: 1.1 }}>{service.title}</h3>
+                </div>
+              </div>
+            </div>
+
+            <div style={{ flex: 1, overflowY: 'auto', paddingRight: '1rem', className: 'hide-scrollbar' }}>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '1.15rem', lineHeight: 1.6, color: 'var(--fg)', marginBottom: '1.5rem', fontWeight: 500 }}>
+                {service.desc}
+              </p>
+              <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.95rem', lineHeight: 1.7, color: 'var(--fg-dim)', marginBottom: '2.5rem' }}>
+                {service.details}
+              </p>
+              
+              <div style={{ marginBottom: '2rem' }}>
+                <div style={{ fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--fg-muted)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: '1rem' }}>Tech Stack & Tools</div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem' }}>
+                  {service.tools.map(tool => (
+                    <span key={tool} style={{ fontFamily: 'var(--font-mono)', fontSize: '0.8rem', padding: '0.5rem 1rem', borderRadius: '50px', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.05)', color: 'var(--fg-dim)', whiteSpace: 'nowrap' }}>
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.8rem', marginTop: '2rem', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '1.5rem' }}>
+              <span style={{ fontFamily: 'var(--font-display)', fontSize: '3rem', fontWeight: 800, color: service.accentHex, lineHeight: 1 }}>{service.highlight}</span>
+              <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: 'var(--fg-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{service.highlightLabel}</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 };
 
 /* ═══ MAIN COMPONENT ═══ */
 const Services = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 1024);
+    handleResize(); // Initial check
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <section id="services" style={{
       padding: '10rem var(--pad-x) 8rem',
       position: 'relative'
     }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+      <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -262,50 +310,47 @@ const Services = () => {
             fontFamily: 'var(--font-body)', fontSize: '1.05rem',
             color: 'var(--fg-dim)', maxWidth: '550px', lineHeight: 1.7
           }}>
-            Click on any card to flip it and explore the tools I use and learn more about each area of expertise.
+            Select a service to expand its details and explore the technologies I use.
           </p>
         </motion.div>
 
-        {/* Interactive hint */}
+        {/* ═══ Horizontal Accordion ═══ */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: false, margin: "-100px" }}
-          transition={{ delay: 0.4 }}
+          transition={{ duration: 1 }}
           style={{
-            display: 'flex', alignItems: 'center', gap: '0.6rem',
-            marginBottom: '3rem',
-            fontFamily: 'var(--font-mono)', fontSize: '0.7rem',
-            color: 'var(--accent)', letterSpacing: '0.08em'
-          }}
-        >
-          <motion.div
-            animate={{ x: [0, 5, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
-          >
-            👆
-          </motion.div>
-          TAP CARDS TO FLIP
-        </motion.div>
-
-        {/* ═══ Service Cards Grid ═══ */}
-        <motion.div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: 'clamp(1rem, 2vw, 2rem)',
-            marginBottom: '4rem'
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
+            gap: '1rem',
+            width: '100%',
+            height: isMobile ? 'auto' : '650px',
+            marginTop: '4rem'
           }}
         >
           {services.map((service, idx) => (
-            <ServiceCard
+            <AccordionItem
               key={service.title}
               service={service}
               index={idx}
+              isActive={activeIndex === idx}
+              onClick={() => setActiveIndex(idx)}
+              isMobile={isMobile}
             />
           ))}
         </motion.div>
       </div>
+
+      <style dangerouslySetInnerHTML={{__html: `
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}} />
     </section>
   );
 };
